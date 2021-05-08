@@ -1,11 +1,15 @@
 import React from "react";
 import './index1.css';
 import { Link } from 'react-router-dom'
+import DesktopHeader from "../../components/DesktopHeader";
+import MobileHeader from "../../components/MobileHeader";
 
 
 export default function Procurar() {
   return (
     <>
+    <DesktopHeader className="mt-8" />
+    <MobileHeader />
       <h3
         style={{
           backgroundColor: '#fff',
@@ -18,9 +22,9 @@ export default function Procurar() {
         Procurar
       </h3>
       <form>  
-        <div class='container1'  style={{width: '50%', position: 'relative'}}>  
+        <div class='container1'>  
           <input type='search' id='busca' name='q' style={{border: 'none'}}/>
-          <button type='submit'  style={{border: 'none', height: '100%', width: '50px', position: 'absolute', top: '0', right: '0'}}>OK</button>
+          <button type='submit'  style={{border: 'none', height: '100%', width: '50px', top: '0', right: '0'}}>OK</button>
         </div>
 
       </form>
