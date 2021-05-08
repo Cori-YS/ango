@@ -2,6 +2,10 @@ import React, { useRef } from "react";
 import Avatar from "./avatar";
 import { Form } from "@unform/web";
 import { Link } from 'react-router-dom'
+
+import DesktopHeader from "../../components/DesktopHeader";
+import MobileHeader from "../../components/MobileHeader";
+
 export default function Perfil() {
   const formRef = useRef();
   const handleFormSubmit = (data) => {
@@ -9,6 +13,8 @@ export default function Perfil() {
   };
   return (
     <>
+    <DesktopHeader className="mt-8" />
+    <MobileHeader />
       <section class="profile-detail">
         <div class="container">
           <div class="col-md-12">
