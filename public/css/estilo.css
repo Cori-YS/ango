@@ -1,0 +1,720 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  font-family: 'Montserrat', sans-serif;
+  font-size:15px;
+  color:#636e7b;
+}
+
+a { 
+  text-decoration: none;
+  color: #242c36;
+}
+
+section{
+  padding:70px 0px 60px 0px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color:#242c36;
+  margin: 0 0 15px 0;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+/* Início da estilização do MENU RESPONSIVO classe: topnav */
+
+	/* Remove as margens, define tamanho do menu para 100%, e adiciona uma cor de fundo */
+	ul.topnav {
+    background:#299BE8;
+    font-size: 20px;
+		position: absolute;
+		right: 0;
+		top: 0;
+		height: 3em;
+		line-height: 4em;
+    width:100%;
+	}
+
+	/* Coloca os itens da lista do Menu lado a lado, e flutua os itens para a esquerda */
+  ul.topnav li img {
+    height: 65px;
+}
+  ul.topnav li:first-child {
+    margin: auto 70% auto 30px;
+  }
+
+	ul.topnav li {
+				display: inline-block;
+				margin-left: 0.5em;
+				font-size: 0.9em;
+        float:left;
+	}
+
+	/* Estilo dos links dentro da lista */
+	ul.topnav li a {
+		display: block;
+		color: #fff;
+		text-decoration: none;
+		height: 3em;
+		line-height: 3em;
+		padding: 0 0.3em 0 0.3em;
+		outline: 0;
+	}
+
+	/* Altera a cor do link quando passa o mouse em cima*/
+	ul.topnav li a:hover {color:#FFB9DC;}
+
+	/* Esconde os itens da lista quando a resolução da tela for pequena */
+	ul.topnav li.icon {display: none; font-size: 30px;}
+
+
+	@media screen and (max-width:1360px) {
+		ul.topnav li:first-child {
+			margin-right: 400px;
+		}
+	}
+
+	@media screen and (max-width:850px) {
+		ul.topnav li:first-child {
+			margin-right: 200px;
+		}
+	}
+	
+	/* Quando a tela é menor do que 680 pixels de largura, ocultar todos os itens da lista. Mostra o item da lista que contém o link para abrir e fechar a nav superior (li.icon) */
+		@media screen and (max-width:680px) {
+		  ul.topnav li {display: none;}
+      ul.topnav li:first-child {
+        display: inline-block;
+        margin: auto auto auto 8px;
+      }
+		  ul.topnav li.icon {
+			float: right;/*O ícone será exibido ao lado direito*/
+			display: inline-block;
+      margin: -13px 8px;
+		  }
+		}
+
+		/*A classe responsiva é adicionada à ul superior com o JavaScript quando o usuário clica no ícone. Esta classe faz com que os itens principais do menu fiquem ok em telas menores */
+		@media screen and (max-width:680px) {
+		  ul.topnav.responsive {
+			position: relative; 
+			height:auto;
+			padding-top:15px;
+			padding-bottom:10px;
+			line-height:5px;
+			width:100%;
+			
+		  }
+		  ul.topnav.responsive li.icon {
+			position: absolute;
+			right: 0;
+			top: 0;
+      margin: 13px 8px;
+		  }
+		  ul.topnav.responsive li {
+			 text-align:center; 
+			float: none;
+			padding:0;
+			display: inline;
+			
+		  }
+      ul.topnav.responsive li:first-child a {
+        display: block;
+        padding:0;
+        text-align: left;
+        line-height:30px;
+        margin: -14px auto auto 8px;
+      }
+		  ul.topnav.responsive li a {
+			display: block;
+			padding:0;
+			line-height:30px;
+			text-align:center;
+		  }
+		} /*FIM DO MENU RESPONSIVO*/
+
+		@media screen and (max-width:360px) {
+			div.caption h2 {
+        margin-top: 20px;
+      }
+		}
+
+	
+.banner {
+	background-image: url("../img/slider-01.jpg");
+	background-repeat: no-repeat;
+
+	background-size:cover !important;
+	background-position:center !important;
+	padding:14% 0;
+	text-align:center;
+	color:#ffffff;
+	margin:0;
+}
+
+.banner .caption{
+	position:relative;
+}
+
+.banner h2{
+	color:#ffffff;
+	font-weight:400;
+	margin-bottom: 25px;
+	font-size: 30pt;
+}
+
+.banner button {
+	padding: 10px;
+	margin: 20px  auto auto 14px; 
+	background-color: #299BE8;
+	color: #ffffff;
+	border: 1px solid #299BE8;
+	font-size: 18pt;
+}
+
+.banner button:active {
+	background-color: #0077b5;
+}
+
+#patrocinios{
+	padding: 10px;
+	text-align: center;
+	box-shadow: 0px 0.5px 2px #707070;
+}
+
+#patrocinios img {
+	height: 70px;
+}
+
+@media(max-width: 800px) {
+	.banner h2{
+			font-size: 16pt;
+	}
+
+	.banner button {
+			font-size: 15pt;
+	}
+}
+
+/*----------------------------Features Style-------------------------*/
+.features-content {
+	border: 1px solid #f4f5f7;
+	padding: 20px 15px;
+	text-align: center;
+	border-radius: 5px;
+	margin-bottom:30px;
+	box-shadow: 0px 0px 10px 0px rgba(107,121,124,0.2);
+	}
+	.features-content h3{
+	font-weight:400;
+	color:#475052;
+	font-size:18px;
+	text-transform:uppercase;
+	margin-bottom:0;
+	}
+	
+	.features-content p{
+	font-weight:300;
+	color:#6b797c;
+	line-height:1.8;
+	font-size:14px;
+	}
+	
+	.features-content span{
+	font-size:45px;
+	margin-bottom:25px;
+	color:#299BE8;
+	}
+
+	/*-----------------------counter Section start-------------------------*/
+.counter{
+	background:#299BE8;
+	padding:60px 0;
+	}
+	
+	.counter-text{
+	text-align:center;
+	color:#ffffff;
+	}
+	
+	.counter-text h3{
+	color:#ffffff;
+	font-weight:400;
+	font-size:32px;
+	margin-bottom:5px;
+	}
+	
+	.counter-text p{
+	color:#ffffff;
+	font-weight:400;
+	font-size:17px;
+	text-transform:uppercase;
+	margin-bottom:0;
+	}
+	
+	.counter-text span{
+	font-size:35px;
+	color:rgba(255,255,255,0.7);
+	margin-bottom:15px;
+	}
+
+/*------------ Estilo da pagina de login ------------*/
+section.login-wrapper {
+  text-align: center;
+}
+
+section.login-wrapper p a {
+  color: #299BE8;
+}
+
+section.login-wrapper p{
+  margin-top:20px;
+}
+
+section.login-wrapper label, section.login-wrapper label a {
+  font-weight: 400;
+  display: block;
+  text-align: left;
+color:#636e7b;
+}
+
+section.login-wrapper img {
+  margin: 20px auto;
+}
+
+section.login-wrapper div {
+  margin: auto;
+}
+
+.form-control {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  height: 45px;
+  margin-bottom: 10px;
+  box-shadow: none;
+  font-size: 14px;
+}
+
+.btn-primary{
+  color: #fff;
+  background-color: #299BE8;
+  border-color: #299BE8;
+  text-transform: uppercase;
+  border-radius: 2px;
+  box-shadow: none;
+  padding: 10px 25px;
+}
+
+.form-control::-moz-placeholder{color:#8796a9;opacity:1}
+.form-control:-ms-input-placeholder{color:#8796a9}
+.form-control::-webkit-input-placeholder{color:#8796a9}
+
+/*----------------- Perfil ----------------------*/
+.basic-information{
+	position: relative;
+	z-index: 1;
+	background-color: #fff;
+	padding: 30px 30px 20px;
+	-webkit-box-shadow: 0 5px 25px 0 rgba(0,0,0,.07);
+	box-shadow: 0 5px 25px 0 rgba(0,0,0,.07);
+border: 1px solid #eaecf1;
+display: table;
+	width: 100%;
+}
+
+.profile-detail img{
+border:4px solid rgba(107,121,124,0.2);
+}
+.basic-information h2{
+margin:0;
+margin-bottom:10px;
+color:#404b4d;
+}
+.basic-information h2 span{
+color:#299BE8;
+font-size:15.5px;
+display:block;
+}
+
+.basic-information p{
+font-size:17px;
+}
+.information{
+margin:0;
+padding:0;
+}
+
+.information li{
+display:block;
+padding:10px 0;
+font-size:15.5;
+list-style:none;
+border-bottom:1px solid rgba(107,121,124,0.1);
+}
+.information li span{
+display: inline-block;
+font-weight:bold;
+width:150px;
+}
+.social{
+margin:0;
+padding:50px 0;
+display:inline-block;
+width:100%;
+}
+.social li{
+list-style:none;
+float:left;
+margin-bottom:7px;
+}
+.social li a{
+font-size:15px;
+color:#6b797c;
+}
+.social li:hover a, .social li:focus a{
+text-decoration:none;
+}
+a.facebook {
+	border: 1px solid #295396;
+	width: 90%;
+	display: inline-block;
+ padding: 4px 5px;
+	border-radius: 50px;
+}
+a.google {
+	border: 1px solid #d6201f;
+	width: 90%;
+	display: inline-block;
+	padding: 4px 5px;
+	border-radius: 50px;
+}
+a.twitter {
+	border: 1px solid #1da0f2;
+	width: 90%;
+	display: inline-block;
+	padding: 4px 5px;
+	border-radius: 50px;
+}
+a.linkedin {
+	border: 1px solid #0077b5;
+	width: 90%;
+	display: inline-block;
+	padding: 4px 5px;
+	border-radius: 50px;
+}
+a.instagram {
+	border: 1px solid #d3368c;
+	width: 90%;
+	display: inline-block;
+	padding: 4px 5px;
+	border-radius: 50px;
+}
+.social li i {
+	width: 42px;
+	height: 42px;
+	border-radius: 50%;
+	color: #ffffff;
+	line-height: 42px;
+	text-align: center;
+margin-right:7px;
+}
+
+.social li .facebook i{
+background:#295396;
+}
+.social li .google i{
+background:#d6201f;
+}
+.social li .twitter i{
+background:#1da0f2;
+}
+.social li .linkedin i{
+background:#0077b5;
+}
+.social li .instagram i{
+background:#d3368c;;
+}
+.panel {
+-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+box-shadow: none;
+border: none;
+}
+.panel-default>.panel-heading {
+background: #f4f5f7;
+box-shadow: none;
+border: none;
+color: #505a5d;
+}
+.basic-information p {
+font-size: 16px;
+line-height: 1.9;
+}
+.service-tag {
+background-color: #299BE8;
+border-radius: 0 2px 2px 0;
+color: #fff;
+display: inline-block;
+font-size: 11px;
+font-weight: 700;
+line-height: 1.2727272727;
+margin: 2px 4px 2px 10px;
+padding: 3px 7px;
+position: relative;
+text-transform: uppercase;
+}
+.service-tag:after {
+background-color: #fff;
+border-radius: 50%;
+content: "";
+height: 4px;
+position: absolute;
+top: 8px;
+left: -2px;
+width: 4px;
+}
+.service-tag:before {
+border-top: 10px solid transparent;
+border-right: 8px solid #299BE8;
+border-bottom: 10px solid transparent;
+content: "";
+height: 0;
+position: absolute;
+top: 0;
+left: -8px;
+width: 0;
+}
+.panel-body ul{
+margin:0;
+padding:0;
+margin-top:20px;
+}
+.panel-body ul li{
+list-style:none;
+line-height:1.7;
+padding: 0 0 6px 10px;
+margin: 10px 0;
+margin-left: 16px;
+}
+.panel-body ul li:before{
+display: inline-block;
+font: normal normal normal 14px/1 FontAwesome;
+font-size: inherit;
+text-rendering: auto;
+-webkit-font-smoothing: antialiased;
+content: "\f067";
+color:#299BE8;
+padding: 8px 12px 8px 5px;
+margin-left: -31px;
+}
+
+/*--------------------- Pagina de Pesquisa ----------------------*/
+form .input-group button.btn {
+	font-size: 22px;
+	border: 1px solid #8796a9;
+}
+ul.topnav-b li img {
+	height: 80px;
+}
+ul.topnav-b li{
+		list-style: none;
+}
+
+/*------------------- detlhesj ----------------------------*/
+h2.medium-title {
+	font-size: 30px;
+	color: #505a5d;
+}
+
+h4 a {
+	font-size: 20px;
+	color: #299BE8;
+}
+
+.btn-common {
+	background-color: #299BE8;
+	color: #fff;
+	border-radius: 15px;
+}
+
+
+
+/*------------------footer design-------------------------*/
+footer{
+	background:#242c36;
+	padding:60px 0 0 0;
+	}
+	.copy-right{
+	background:rgba(10,10,10,0.2);
+	padding:12px 0;
+	text-align:center;
+	margin-top:50px;
+	}
+	.copy-right a{
+	color:#299BE8;	
+	}
+	footer img{
+	margin-bottom:20px;
+	}
+	footer h4{
+	color:rgba(255,255,255,0.7);
+	text-transform:uppercase;
+	font-size:20px;
+	font-weight:400;
+	}
+	footer ul{
+	margin:0;
+	padding:0;
+	}
+	footer ul li{
+	list-style:none;
+	}
+	footer ul li a{
+	color:#636e7b;
+	line-height:2;
+	}
+	footer ul li a:hover{
+	color:#299BE8;
+	}
+	footer address ul li{
+	margin-bottom:10px;
+	line-height:1.8;
+	}
+	footer .form-control {
+			border: 1px solid #3f4a58;
+			margin-bottom:7px;
+			border-radius: 2px;
+			box-shadow: none;
+			color: #8796a9;
+			height: 45px;
+		font-size:14px;
+			background: #333d4a;
+	}
+	footer textarea.form-control{
+	height:70px;
+	}
+	footer button.btn.btn-primary {
+			border-radius: 2px;
+			min-width: 120px;
+			padding: 10px 0;
+			text-align: center;
+			text-transform: uppercase;
+			background: #299BE8;
+			border: 1px solid #299BE8;
+	}
+	footer .form-control::-moz-placeholder{color:#8796a9;opacity:1}
+	footer .form-control:-ms-input-placeholder{color:#8796a9}
+	footer .form-control::-webkit-input-placeholder{color:#8796a9}
+
+	/* ---------------- ------------------------- */
+
+.custom-file {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: calc(2.25rem + 2px);
+  margin-bottom: 0;
+}
+
+.custom-file-input {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: calc(2.25rem + 2px);
+  margin: 0;
+  opacity: 0;
+}
+
+.custom-file-input:focus ~ .custom-file-label {
+  border-color: #80bdff;
+  box-shadow: none;
+}
+
+.custom-file-input[disabled] ~ .custom-file-label,
+.custom-file-input:disabled ~ .custom-file-label {
+  background-color: #e9ecef;
+}
+
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+  content: "Browse";
+}
+
+.custom-file-input ~ .custom-file-label[data-browse]::after {
+  content: attr(data-browse);
+}
+
+.custom-file-label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+  height: calc(2.25rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  box-shadow: none;
+}
+
+.custom-file-label::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: block;
+  height: 2.25rem;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  color: #495057;
+  content: "Browse";
+  background-color: #e9ecef;
+  border-left: inherit;
+  border-radius: 0 0.25rem 0.25rem 0;
+}
+
+/*-------------------- Job Lista -------------------*/
+.find-job {
+	font-size: 12pt;
+}
+
+.pull-right a {
+	color: #fff;
+	background-color: #299BE8;
+	border-radius: 10px;
+}
+
+.job-list{
+	margin-bottom: 50px;
+}
+
+.job-list a{
+	text-decoration: none;
+}
+
+.featured-item {
+	background-color: #fff;
+	font-size: 12pt;
+	padding: 20px;
+	margin-bottom: 30px;
+}
+
+.featured-item:hover {
+	box-shadow: 2px 1px 2px #505a5d;
+}
+
+.featured-item a{
+	text-decoration: none;
+}
+
+.featured-item img{
+	width: 100%;
+}
+
