@@ -3,6 +3,8 @@ import * as yup from 'yup';
 import { Form} from '@unform/web';
 import  Input  from '../../components/components/fields/Input';
 import Select from '../../components/components/fields/Select';
+import DesktopHeader from "../../components/DesktopHeader";
+import MobileHeader from "../../components/MobileHeader";
 import {toast} from "react-toastify";
 
 export default function Editar() {
@@ -60,10 +62,12 @@ export default function Editar() {
 
   return (
     <>
+    <DesktopHeader className="mt-8" />
+    <MobileHeader />
       <section class="login-wrapper">
         <div class="container1">
           <Form class="container" schema={schema} onSubmit={handleSubmit} ref={formRef} style={{border: '1px solid #299be8', width: '410px', height: '1550px', margin: 'auto'}}>
-            <img class="img-responsive" alt="logo" src="img/logo-azul.png" />
+            
             <div class="row">
               <div class="col-md-8">
                 <div class="form-group" style={{ display: "inline-block" }}>
