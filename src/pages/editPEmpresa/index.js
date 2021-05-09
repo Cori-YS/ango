@@ -4,7 +4,7 @@ import { Form} from '@unform/web';
 import  Input  from '../../components/components/fields/Input';
 import Select from '../../components/components/fields/Select';
 import {toast} from "react-toastify";
-
+import Api from '../../services/api'
 export default function EditarEmpresa() {
 
   var ism = [{
@@ -13,21 +13,16 @@ export default function EditarEmpresa() {
   }]
 
   const schema = yup.object({
-      nome: yup.string().required('O nome é obrigatorio'),
+      nome: yup.string(),
       website: yup.string(),
-      telefone: yup.string().required('O telefone é obrigatorio'),
-      email: yup.string().email('Deve ser um email valido').required('O email é obrigatorio'),
-      senha: yup.string().min(8).required('O password é obrigatorio'),
-      Csenha: yup.string()
-      .oneOf([yup.ref('senha'), null], 'Password deve ser igual')
-      .required('Comfirmar a palavra passe é obrigatorio'),
-      pais: yup.string().required('O pais é obrigatorio'),
-      provincia: yup.string().required('A provincia é obrigatorio'),
-      sobremim: yup.string().required('A sobre-mim é obrigatorio'),
-      responsabilidade: yup.string().required('responsabilidade é obrigatorio'),
-      qualificacoesminimas: yup.string().required('qualificações minimas são obrigatorio'),
-      qualificacoesperferidas: yup.string().required('qualificações perferidas são obrigatorio'),
-      area: yup.string().required('A area é obrigatorio')
+      telefone: yup.string(),
+      pais: yup.string(),
+      provincia: yup.string(),
+      sobremim: yup.string(),
+      responsabilidade: yup.string(),
+      qualificacoesminimas: yup.string(),
+      qualificacoesperferidas: yup.string(),
+      area: yup.string(),
     })
 
     async function handleSubmit (data, {reset}){
@@ -50,7 +45,8 @@ export default function EditarEmpresa() {
        }
      
        try {
-     
+         data.owner="empresa"
+       await Api.post('/editarPerfil', {data})
        }
        catch (err) {
      
@@ -64,7 +60,7 @@ export default function EditarEmpresa() {
       <section class="login-wrapper">
         <div class="container1">
           <Form class="container" schema={schema} onSubmit={handleSubmit} ref={formRef} style={{border: '1px solid #299be8', width: '410px', height: '1650px', margin: 'auto'}}>
-          <img class="img-responsive" alt="logo" src="img/logo-azul.png" />
+        
             <div class="row">
               <div class="col-md-8">
                 <div class="form-group" style={{ display: "inline-block" }}>
@@ -91,27 +87,8 @@ export default function EditarEmpresa() {
               <div class="col-md-8" style={{ right: "0" }}>
                 <Input type="text" name="website" class="form-control" placeholder="Website" style={{width: '350px', margin: '10px auto'}}/>
               </div>
-              <div class="col-md-8">
-                <Input type="email" name="email" class="form-control" placeholder="Email" style={{width: '350px', margin: '10px auto'}}/>
-              </div>
-              <div class="col-md-8">
-                <Input
-                  type="password"
-                  class="form-control"
-                  name="senha"
-                  placeholder="Palavra-passe"
-                  style={{width: '350px', margin: '10px auto'}}
-                />
-              </div>
-              <div class="col-md-8">
-                <Input
-                  type="password"
-                  class="form-control"
-                  name="Csenha"
-                  placeholder="Confirme a palavra-passe"
-                  style={{width: '350px', margin: '10px auto'}}
-                />
-              </div>
+
+              
               <div class="col-md-8">
                 <label for="pais" class="form-label">
                   Pais

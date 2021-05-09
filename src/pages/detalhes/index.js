@@ -1,22 +1,87 @@
 import React, {useState, useEffect} from "react";
 import { useParams} from 'react-router-dom'
 import Api from '../../services/api'
+import { Modal} from 'antd';
+import { useAuth} from '../../auth'
 export default function Detalhe() {
-const [dados, setDados]= useState([]);
+  const { getUser} =useAuth()
+  const [user, setUser] = useState({})
+  const [Active, setActive] =useState(false)
+  const [dados, setDados]= useState([]);
+const [setor, setSetor] =useState([])
+const [empresa, setEmpresa]=useState({})
+const [vagaId, setVagaId]= useState(false)
+
   const {id} = useParams()
+
+
+ async function countdown(){
   
- //Api.get(`vaga/${id}`).then((data)=>{
-  // console.log('exemplo',data.data.Listagem)
-  // setDados(data.data.Listagem)
- //}).catch((e)=>{
- //  console.log(e, 'erro')
- //}) 
+
+  if (Active) {
+    await Api.post('/solicitar/del', {vaga:id,candidato:user.id })
+    setActive(!Active)
+  }else {
+    await Api.post('/solicitar', {vaga:id,candidato:user.id })
+    setActive(!Active)
+  }
+
+  let secondsToGo = 5;
+  let title =Active ? 'A sua candidatura sera enviada': 'A remover candidatura em breve'
+    
+  const modal = Modal.success({
+    title:title ,
+    content: `Em ${secondsToGo} segundos.`,
+  });
+  
+  const timer = setInterval(() => {
+    secondsToGo -= 1;
+    modal.update({
+      content: `Em ${secondsToGo} segundos.`,
+    });
+  }, 1000);
+  setTimeout(() => {
+    clearInterval(timer);
+    modal.destroy();
+  }, secondsToGo * 1000);
+  }
+
+
+
+
+  
+  useEffect(()=>{
+    setUser(getUser())
+    function receber(id){
+      Api.get(`vagas/${id}`).then((data)=>{
+        console.log(data.data.Listagem, 'ismelio')
+    setDados(data.data.Listagem)
+    setEmpresa(data.data.Listagem.utilizadorId)
+    setSetor(data.data.Listagem.setor)
+    }).catch((e)=>{
+    console.log(e, 'erro')
+    }) 
+
+    Api.post('solicitars',{vaga:id, candidato:user.id}).then((data)=>{
+      console.log(data.data.sucesso, 'ismelio')
+  setVagaId(data.data.sucesso)
+    setActive(data.data.sucesso)
+  }).catch((e)=>{
+  console.log(e, 'erro')
+  }) 
+    } 
+    receber(id)
+    
+  },[])
+
+
+ 
 
 
 
   return (
     <>
- {dados.map((data)=>(
+
   <section class="job-detail section">
         <div class="container">
           <div class="row">
@@ -27,24 +92,28 @@ const [dados, setDados]= useState([]);
                   <div class="text-left">
                      
                     <h3>
-                      <a href="#">Desenvolvedor Web</a>
+                      <a href="#">{dados.nome}</a>
                     </h3>
                     <p>
-                      LemonKids LLC 
+                 {setor.nome}
                     </p>
                     <div class="meta">
                       <span>
                         <a href="#">
-                          <i class="ti-calendar"></i> Dec 30, 2017 - Feb 20,
-                          2018
+                          <i class="ti-calendar"></i> {dados.createdAt}
                         </a>
                       </span>
                     </div>
                     <a href="#" class="btn btn-border btn-sm">
-                      Freelance
+                      {dados.tipoVaga =="1" && "Estagio"}
+                      {dados.tipoVaga =="2" && "Integral"}
                     </a>
-                    <a href="#" class="btn btn-common btn-sm">
-                      Aplicar Para Este Trabalho
+                    <a href="#" class="btn btn-common btn-sm" onClick={(e) => {
+                      e.preventDefault();
+                      countdown();
+                    }}>
+                      {!Active && (<span> Aplicar Para Este {dados.tipoVaga =="1" ? "Estagio" : "Trabalho"}</span>)}
+                      {Active && (<span> Remover aplicação Para Este {dados.tipoVaga =="1" ? "Estagio" : "Trabalho"} </span>)}
                     </a>
                   </div>
                   <div class="clearfix">
@@ -55,21 +124,7 @@ const [dados, setDados]= useState([]);
 
                       <div class="panel-body">
                         <p>
-                          LemonKids LLC. In marketing communications, we dream
-                          it and create it. All of the company’s promotional and
-                          communication needs are completed in-house by these
-                          “creatives” in an advertising agency-based set-up.
-                          This includes everything from advertising, promotions
-                          and print production to media relations, exhibition
-                          coordination and website maintenance. Everyone from
-                          artists, writers, designers, media buyers, event
-                          coordinators, video producers/editors and public
-                          relations specialists work together to bring campaigns
-                          and product-centric promotions to life.
-
-                          If you’re a dreamer, gather up your portfolio and show
-                          us your vision. Garmin is adding one more enthusiastic
-                          individual to our in-house Communications expert team.
+                          {dados.overview}
                         </p>
                       </div>
                     </div>
@@ -81,11 +136,7 @@ const [dados, setDados]= useState([]);
 
                       <div class="panel-body">
                         <p>
-                          Minimum of 5 years creative experience in a graphic
-                          design studio or advertising ad agency environment is
-                          required. Qualified candidates for this role will
-                          possess the following education, experience and
-                          skills:
+                         {dados.qualificacoes}
                         </p>
                       </div>
                     </div>
@@ -99,19 +150,7 @@ const [dados, setDados]= useState([]);
                       <div class="panel-body">
                         <ul>
                           <li>
-                            Provide technical health advice to Head of Country
-                            Programmes and field advisors at all key stages of
-                            the project management cycle including needs
-                            assessment.
-                            Technical strategy and design, implementation as
-                            well as sector specific monitoring and evaluation.
-                            This includes travel to field programmes as well as
-                            review of proposals, key reports and surveys prior
-                            to external submission.
-                            Stay abreast of current best practice. Research and
-                            stay informed on academic and technical health and
-                            nutrition issues, techniques, and guidelines to
-                            inform and improve programming.
+                           {dados.responsabilidade}
                           </li>
                         </ul>
                       </div>
@@ -125,20 +164,8 @@ const [dados, setDados]= useState([]);
                       <div class="panel-body">
                         <ul>
                           <li>
-                            Must have minimum of 3 years experience running,
-                            maneuvering, driving, and navigating equipment such
-                            as bulldozer, excavators, rollers, and front-end
-                            loaders.
-                            Must have minimum of 3 years experience running,
-                            maneuvering, driving, and navigating equipment such
-                            as bulldozer, excavators, rollers, and front-end
-                            loaders. Strongly prefer candidates with High School
-                            Diploma
-                            Must be able to perform physical activities that
-                            require considerable use of your arms and legs and
-                            moving your whole body, such as climbing, lifting,
-                            balancing, walking, stooping, and handling of
-                            materials.
+    
+                           {dados?.requerimento}
                           </li>
                         </ul>
                       </div>
@@ -152,21 +179,16 @@ const [dados, setDados]= useState([]);
                       <div class="panel-body">
                         <ul>
                           <li>
-                            Must have minimum of 3 years experience running,
-                            maneuvering, driving, and navigating equipment such
-                            as bulldozer, excavators, rollers, and front-end
-                            loaders.
-                            Strongly prefer candidates with High School Diploma
-                            Must be able to perform physical activities that
-                            require considerable use of your arms and legs and
-                            moving your whole body, such as climbing, lifting,
-                            balancing, walking, stooping, and handling of
-                            materials.
+                           {dados.beneficios}
                           </li>
                         </ul>
-                        <a href="#" class="btn btn-common btn-sm">
-                          Aplicar Para Este Trabalho
-                        </a>
+                        <a href="#" class="btn btn-common btn-sm" onClick={(e) => {
+                      e.preventDefault();
+                      countdown();
+                    }}>
+                      {!Active && (<span> Aplicar Para Este {dados.tipoVaga =="1" ? "Estagio" : "Trabalho"}</span>)}
+                      {Active && (<span> Remover aplicação Para Este {dados.tipoVaga =="1" ? "Estagio" : "Trabalho"} </span>)}
+                    </a>
                       </div>
                     </div>
                   </div>
@@ -179,7 +201,7 @@ const [dados, setDados]= useState([]);
                 <div class="">
                   <div class="basic-information">
                     <h4>
-                      <a href="#">LemonKids LLC</a>
+                      <a href="#">{empresa.nome}</a>
                     </h4>
                     <p>
                       LemonKids LLC. In marketing communications, we dream it
@@ -197,7 +219,7 @@ const [dados, setDados]= useState([]);
           </div>
         </div>
       </section>
- ))}
+
       
     </>
   );

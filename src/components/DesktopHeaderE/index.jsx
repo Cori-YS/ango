@@ -19,6 +19,8 @@ import {
 //import Api from "";
 import {parseISO, formatDistance} from "date-fns";
 import pt from "date-fns/locale/pt";
+
+import {useAuth } from '../../auth'
 const DesktopHeader= () => {
   const [visible, setVisible]= useState(false);
   const [notifications, setNotifications]= useState([]);
@@ -58,6 +60,11 @@ setNotifications(
     )
 )
  } */
+const { getUser} =useAuth();
+ const [user, setUser]= useState({})
+ useEffect(()=>{
+   setUser(getUser())
+ },[])
   return (
     <Container>
       <Wrapper>
@@ -115,7 +122,8 @@ setNotifications(
                 </NotificationList>
 
               </ContainerNotif>
-            <Link to="/perfil-empresa/:id">
+            
+            <Link to={`/perfil-empresa/${user.id}`}>
             <button>
               <ProfileCircle src="img/raul.jpg" alt=""  />
             </button>

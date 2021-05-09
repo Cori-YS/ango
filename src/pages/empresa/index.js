@@ -1,7 +1,15 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from 'react-router-dom'
-
+import {useAuth} from '../../auth';
 export default function Empresa() {
+
+  const { getUser} =useAuth()
+  const [user, setUser] = useState({})
+  useEffect(()=>{
+    setUser(getUser());
+  },[])
+
+
   return (
     <>
       <section class="profile-detail">
@@ -35,7 +43,7 @@ export default function Empresa() {
                         <span>Desde:</span>1998
                       </li>
                       <li>
-                        <Link to="/editar-perfil-empresa/:id" class="btn btn-common btn-sm" href="#">
+                        <Link to={`/editar-conta-empresa/${user.id}`} class="btn btn-common btn-sm" href="#">
                           Editar Perfil
                         </Link>
                       </li>
