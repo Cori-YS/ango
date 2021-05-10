@@ -1,19 +1,43 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 
 import FeedShare from "./FeedShare";
 import FeedPost from "./FeedPost";
+import { useAuth} from '../../auth'
+import Api from '../../services/api';
 
 import { Container } from "./styles";
 
 const MiddleColumnE = () => {
+
+  const { getUser} = useAuth()
+  const [setor, setSetor]=useState([])
+  const [user, setUser] = useState({});
+  const [dados, setDados]=useState([])
+  const [tag, setTag]= useState(<>,</>)
+
+  useEffect(()=>{
+    function receber (){
+      Api.get('/vaga').then((data)=>{
+       console.log('rau', data.data.Listagem)
+       setDados(data.data.Listagem)
+      }).catch((e)=>{
+        alert()
+        console.error(e)
+      })
+    }
+  
+    receber()
+  },[])
+
+
   return (
     <>
     <Container className="middle-column">
       <FeedShare />
-      <FeedPost />
-      <FeedPost />
-      <FeedPost />
-      <FeedPost />
+      {dados.map((e)=>(
+        <FeedPost Id={e._id} data={e.createdAt} nomeVaga={e.nome} nomeEmpresa={e.utilizadorId.nome} overView={e.overview} setor ={e.setor.nome} idEmpresa={e.utilizadorId._id}/>
+      ))}
+      {tag}
       
     </Container>
    

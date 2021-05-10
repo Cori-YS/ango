@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import { Form} from '@unform/web';
 import  Input  from '../../components/components/fields/Input';
 import Select from '../../components/components/fields/Select';
+import { Link } from 'react-router-dom'
 import {toast} from "react-toastify";
 
 export default function EditarDetalhes() {
@@ -50,6 +51,10 @@ export default function EditarDetalhes() {
 
   return (
     <>
+    <Link to="/principal-empresa">
+    <h1>AngoSalo</h1>
+    </Link>
+    
       <section class="login-wrapper">
         <div class="container1">
           <Form class="container" schema={schema} onSubmit={handleSubmit} ref={formRef} style={{border: '1px solid #299be8', width: '410px', height: '1200px'}}>

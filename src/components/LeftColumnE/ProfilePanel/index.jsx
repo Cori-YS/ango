@@ -27,7 +27,7 @@ const [user, setUser]=useState({})
         <div className="separator"></div>
 
         <div className="key-value">
-          <span className="key">Bem vindo</span>
+          <span className="key">Bem vindo {user.nome}</span>
         </div>
       </Container>
     </Panel>

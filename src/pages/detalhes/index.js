@@ -3,6 +3,7 @@ import { useParams} from 'react-router-dom'
 import Api from '../../services/api'
 import { Modal} from 'antd';
 import { useAuth} from '../../auth'
+
 export default function Detalhe() {
   const { getUser} =useAuth()
   const [user, setUser] = useState({})
@@ -27,7 +28,7 @@ const [vagaId, setVagaId]= useState(false)
   }
 
   let secondsToGo = 5;
-  let title =Active ? 'A sua candidatura sera enviada': 'A remover candidatura em breve'
+  let title =Active ? 'A remover candidatura em breve':  'A sua candidatura sera enviada'
     
   const modal = Modal.success({
     title:title ,
@@ -148,11 +149,9 @@ const [vagaId, setVagaId]= useState(false)
                       </div>
 
                       <div class="panel-body">
-                        <ul>
-                          <li>
-                           {dados.responsabilidade}
-                          </li>
-                        </ul>
+                        <p>
+                        {dados.responsabilidade}
+                        </p>
                       </div>
                     </div>
 
@@ -162,12 +161,10 @@ const [vagaId, setVagaId]= useState(false)
                       </div>
 
                       <div class="panel-body">
-                        <ul>
-                          <li>
-    
-                           {dados?.requerimento}
-                          </li>
-                        </ul>
+
+                        <p>
+                        {dados?.requerimento}
+                        </p>
                       </div>
                     </div>
 
@@ -177,11 +174,9 @@ const [vagaId, setVagaId]= useState(false)
                       </div>
 
                       <div class="panel-body">
-                        <ul>
-                          <li>
-                           {dados.beneficios}
-                          </li>
-                        </ul>
+                        <p>
+                        {dados.beneficios}
+                        </p>
                         <a href="#" class="btn btn-common btn-sm" onClick={(e) => {
                       e.preventDefault();
                       countdown();

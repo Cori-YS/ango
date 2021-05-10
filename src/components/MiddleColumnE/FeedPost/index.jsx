@@ -18,7 +18,7 @@ import {
 } from './styles';
 
 
-const FeedPost= () => {
+const FeedPost= ({Id, data, nomeVaga, nomeEmpresa,overView, setor, idEmpresa}) => {
 
   return (
     <>
@@ -27,18 +27,14 @@ const FeedPost= () => {
         <Row className="heading">
           <Avatar src="img/large.png" alt="" />
           <Column>
-            <h3>Nome Empresa</h3>
-            <h4>Area</h4>
-            <h4>Nome da vaga</h4>
-            <time>1 sem</time>
-            <Link to='/detalhes-vaga/:id' >
+            <Link to={`/perfil-empresa/${idEmpresa}`} ><h3>{nomeEmpresa}</h3></Link>
+            <h4>{setor}</h4>
+            <Link to={`/detalhes-vaga/${Id}`} ><h4>{nomeVaga}</h4></Link>
+            <time>{data}</time>
+            <Link to={`/detalhes-vaga/${Id}`} >
               <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Illum quaerat aut veniam molestiae atque dolorum omnis
-              temporibus consequuntur saepe. Nemo atque consectetur saepe
-              corporis odit in dicta reprehenderit, officiis, praesentium?
+              {overView}
               </p>
-
             </Link>
           </Column>
         </Row>
@@ -55,7 +51,7 @@ const FeedPost= () => {
         <Row className="actions" style={{display:"flex", justifyContent:"flex-end"}} >
           
           
-        <Link to="/editar-vaga/:id">
+        <Link to={`/editar-vaga/${Id}`}>
           <button style={{ borderRadius:"4px"}}>
             <SendIcon />
             

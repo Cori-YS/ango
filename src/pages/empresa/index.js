@@ -25,7 +25,6 @@ export default function Empresa() {
                     <h2>
                       Microsoft<span>Internet e Computacao de Software</span>
                     </h2>
-                    <p>Now Hiring(102)</p>
                     <ul class="information">
                       <li>
                         <span>Endereço:</span>Menlo Park, CA
@@ -34,13 +33,7 @@ export default function Empresa() {
                         <span>Website:</span>Google.com
                       </li>
                       <li>
-                        <span>Empregados:</span>50,000 - 70,000 employer
-                      </li>
-                      <li>
                         <span>Email:</span>info@google.com
-                      </li>
-                      <li>
-                        <span>Desde:</span>1998
                       </li>
                       <li>
                         <Link to={`/editar-conta-empresa/${user.id}`} class="btn btn-common btn-sm" href="#">
@@ -108,42 +101,6 @@ export default function Empresa() {
                       products, acquisitions and partnerships beyond Google's
                       core search engine (Google Search).
                     </p>
-                    <ul>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                    </ul>
                   </div>
                 </div>
 
@@ -157,42 +114,6 @@ export default function Empresa() {
                       Rapid growth since incorporation has triggered a chain of
                       products.
                     </p>
-                    <ul>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                    </ul>
                   </div>
                 </div>
 
@@ -203,42 +124,11 @@ export default function Empresa() {
                   </div>
 
                   <div class="panel-body">
-                    <ul>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                    </ul>
+                  <p>
+                      Rapid growth since incorporation has triggered a chain of
+                      products, acquisitions and partnerships beyond Google's
+                      core search engine (Google Search).
+                    </p>
                   </div>
                 </div>
               </div>

@@ -7,7 +7,7 @@ import PerfilVer from "./pages/profile - Cópia";
 import Register from "./pages/cadastro";
 import Login from "./pages/login";
 import Detalhes from "./pages/detalhes";
-import DetalhesE from "./pages/detalhes";
+import DetalhesE from "./pages/detalhes - Cópia";
 import EditarDetalhes from "./pages/EditDetalhes";
 import Editar_Detalhes from "./pages/EditDetalhes - Cópia";
 import Procurar from "./pages/procurar";

@@ -1,20 +1,34 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Avatar from "./avatar";
 import { Form } from "@unform/web";
 import { Link } from 'react-router-dom'
-
-import DesktopHeader from "../../components/DesktopHeader";
-import MobileHeader from "../../components/MobileHeader";
+import {useAuth} from '../../auth';
+import { useParams} from 'react-router-dom'
+import Api from '../../services/api'
 
 export default function Perfil() {
+  const {id} = useParams()
   const formRef = useRef();
   const handleFormSubmit = (data) => {
     console.log(data);
   };
+
+  const { getUser} =useAuth()
+  const [user, setUser] = useState({})
+  useEffect(()=>{
+    setUser(getUser());
+    function receber(id) {
+      Api.get(`candidato/${id}`).then((data) => {
+        console.log(data.data, "ismel")
+      }).catch((e)=>{
+        console.log(e, 'erro')
+      }) 
+    }
+    receber(id)
+  },[])
+
   return (
     <>
-    <DesktopHeader className="mt-8" />
-    <MobileHeader />
       <section class="profile-detail">
         <div class="container">
           <div class="col-md-12">
@@ -26,23 +40,23 @@ export default function Perfil() {
                 <div class="col-md-9 col-sm-9">
                   <div class="profile-content">
                     <h2>
-                      Raul Cori<span>Desenvolvedor Web</span>
+                      {user.nome}<span>Desenvolvedor Web</span>
                     </h2>
                     <ul class="information">
                       <li>
-                        <span>Nome:</span>Raul Cori
+                        <span>Nome:</span>{user.nome}
                       </li>
                       <li>
-                        <span>Email:</span>daniel-duke@gmail.com
+                        <span>Email:</span>{user.email}
                       </li>
                       <li>
                         <span>Telefone:</span>+91 548 576 8579
                       </li>
                       <li>
-                        <span>Data de Nascimento:</span>19 Agosto 2001
+                        <span>Data de Nascimento:</span>
                       </li>
                       <li>
-                        <Link to="/editar-conta/:id" class="btn btn-common btn-sm" href="#">
+                        <Link to={`/editar-conta/${id}`} class="btn btn-common btn-sm" href="#">
                           Editar Perfil
                         </Link>
                       </li>
@@ -111,42 +125,6 @@ export default function Perfil() {
                       usually a bunch of logic to talk to the backend. It is the
                       visual bit that the user interacts with.
                     </p>
-                    <ul>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                    </ul>
                   </div>
                 </div>
 
@@ -161,12 +139,6 @@ export default function Perfil() {
                       with, includes the User Interface, the animations, and
                       usually a bunch of logic to talk to the backend.
                     </p>
-                    <span class="service-tag">Web Design</span>
-                    <span class="service-tag">Graphics</span>
-                    <span class="service-tag">Development</span>
-                    <span class="service-tag">App design</span>
-                    <span class="service-tag">IOS Apps</span>
-                    <span class="service-tag">CMS Development</span>
                   </div>
                 </div>
               </div>

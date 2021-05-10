@@ -6,6 +6,10 @@ import Select from '../../components/components/fields/Select';
 import {toast} from "react-toastify";
 import Api from '../../services/api';
 import { useAuth} from '../../auth'
+
+import { Link } from 'react-router-dom'
+
+
 export default function EditarDetalhes() {
   const { getUser} = useAuth()
   const [setor, setSetor]=useState([])
@@ -85,6 +89,9 @@ useEffect(() => {
 
   return (
     <>
+    <Link to="/principal-empresa">
+    <h1>AngoSalo</h1>
+    </Link>
       <section class="login-wrapper">
         <div class="container1">
           <Form class="container" schema={schema} onSubmit={handleSubmit} ref={formRef} style={{border: '1px solid #299be8', width: '410px', height: '1400px'}}>

@@ -1,7 +1,35 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from 'react-router-dom'
+import { useParams} from 'react-router-dom'
+import Api from '../../services/api'
+import { Modal} from 'antd';
+import { useAuth} from '../../auth'
 
 export default function Detalhe() {
+
+  const { getUser} =useAuth()
+  const [user, setUser] = useState({})
+  const [dados, setDados]= useState([]);
+  const [setor, setSetor] =useState([])
+  const [empresa, setEmpresa]=useState({})
+
+  const {id} = useParams()
+
+  useEffect(()=>{
+    setUser(getUser())
+    function receber(id){
+      Api.get(`vagas/${id}`).then((data)=>{
+        console.log(data.data.Listagem, 'ismelio')
+        setDados(data.data.Listagem)
+        setEmpresa(data.data.Listagem.utilizadorId)
+        setSetor(data.data.Listagem.setor)
+    }).catch((e)=>{
+      console.log(e, 'erro')
+    }) 
+  } 
+    receber(id)
+  },[])
+
   return (
     <>
       <section class="job-detail section">
@@ -13,32 +41,24 @@ export default function Detalhe() {
                 <div class="basic-information">
                   <div class="text-left">
                     <h3>
-                      <a href="#">Desenvolvedor Web</a>
+                      <a href="#">{dados.nome}</a>
                     </h3>
                     <p>
-                      LemonKids LLC <em>(View All Jobs)</em>
+                      {setor.nome}
                     </p>
                     <div class="meta">
                       <span>
                         <a href="#">
-                          <i class="ti-location-pin"></i> Nationwide
-                        </a>
-                      </span>
-                      <span>
-                        <a href="#">
-                          <i class="ti-calendar"></i> Dec 30, 2017 - Feb 20,
-                          2018
+                          <i class="ti-calendar"></i> {dados.createdAt}
                         </a>
                       </span>
                     </div>
-                    <strong class="price">
-                      <i class="fa fa-money"></i>$7000 - $7500
-                    </strong>
-                    <Link to="/editar-vaga/:id" class="btn btn-common btn-sm">
+                    <a href="#" class="btn btn-border btn-sm">
+                      {dados.tipoVaga =="1" && "Estagio"}
+                      {dados.tipoVaga =="2" && "Integral"}
+                    </a>
+                    <Link to={`/editar-vaga/${id}`} class="btn btn-common btn-sm" style={{marginTop: '20px'}}>
                       Editar Vaga
-                    </Link>
-                    <Link to="/editar-vaga/:id" class="btn btn-common btn-sm">
-                      Apagar Vaga
                     </Link>
                   </div>
                   <div class="clearfix">
@@ -49,22 +69,7 @@ export default function Detalhe() {
 
                       <div class="panel-body">
                         <p>
-                          LemonKids LLC. In marketing communications, we dream
-                          it and create it. All of the company’s promotional and
-                          communication needs are completed in-house by these
-                          “creatives” in an advertising agency-based set-up.
-                          This includes everything from advertising, promotions
-                          and print production to media relations, exhibition
-                          coordination and website maintenance. Everyone from
-                          artists, writers, designers, media buyers, event
-                          coordinators, video producers/editors and public
-                          relations specialists work together to bring campaigns
-                          and product-centric promotions to life.
-                        </p>
-                        <p>
-                          If you’re a dreamer, gather up your portfolio and show
-                          us your vision. Garmin is adding one more enthusiastic
-                          individual to our in-house Communications expert team.
+                          {dados.overview}
                         </p>
                       </div>
                     </div>
@@ -76,26 +81,8 @@ export default function Detalhe() {
 
                       <div class="panel-body">
                         <p>
-                          Minimum of 5 years creative experience in a graphic
-                          design studio or advertising ad agency environment is
-                          required. Qualified candidates for this role will
-                          possess the following education, experience and
-                          skills:
-                        </p>
-                        <ul>
-                          <li>
-                            Demonstrated strong and effective verbal, written,
-                            and interpersonal communication skills
-                          </li>
-                          <li>
-                            Must be team-oriented, possess a positive attitude
-                            and work well with others
-                          </li>
-                          <li>
-                            Ability to prioritize and multi-task in a flexible,
-                            fast paced and challenging environment
-                          </li>
-                        </ul>
+                            {dados.qualificacoes}
+                         </p>
                       </div>
                     </div>
 
@@ -106,29 +93,9 @@ export default function Detalhe() {
                       </div>
 
                       <div class="panel-body">
-                        <ul>
-                          <li>
-                            Provide technical health advice to Head of Country
-                            Programmes and field advisors at all key stages of
-                            the project management cycle including needs
-                            assessment.
-                          </li>
-                          <li>
-                            Technical strategy and design, implementation as
-                            well as sector specific monitoring and evaluation.
-                          </li>
-                          <li>
-                            This includes travel to field programmes as well as
-                            review of proposals, key reports and surveys prior
-                            to external submission.
-                          </li>
-                          <li>
-                            Stay abreast of current best practice. Research and
-                            stay informed on academic and technical health and
-                            nutrition issues, techniques, and guidelines to
-                            inform and improve programming.
-                          </li>
-                        </ul>
+                        <p>
+                          {dados.responsabilidade}
+                        </p>
                       </div>
                     </div>
 
@@ -138,28 +105,9 @@ export default function Detalhe() {
                       </div>
 
                       <div class="panel-body">
-                        <ul>
-                          <li>
-                            Must have minimum of 3 years experience running,
-                            maneuvering, driving, and navigating equipment such
-                            as bulldozer, excavators, rollers, and front-end
-                            loaders.
-                          </li>
-                          <li>
-                            Must have minimum of 3 years experience running,
-                            maneuvering, driving, and navigating equipment such
-                            as bulldozer, excavators, rollers, and front-end
-                            loaders. Strongly prefer candidates with High School
-                            Diploma
-                          </li>
-                          <li>
-                            Must be able to perform physical activities that
-                            require considerable use of your arms and legs and
-                            moving your whole body, such as climbing, lifting,
-                            balancing, walking, stooping, and handling of
-                            materials.
-                          </li>
-                        </ul>
+                        <p>
+                          {dados?.requerimento}
+                        </p>
                       </div>
                     </div>
 
@@ -169,27 +117,16 @@ export default function Detalhe() {
                       </div>
 
                       <div class="panel-body">
-                        <ul>
-                          <li>
-                            Must have minimum of 3 years experience running,
-                            maneuvering, driving, and navigating equipment such
-                            as bulldozer, excavators, rollers, and front-end
-                            loaders.
-                          </li>
-                          <li>
-                            Strongly prefer candidates with High School Diploma
-                          </li>
-                          <li>
-                            Must be able to perform physical activities that
-                            require considerable use of your arms and legs and
-                            moving your whole body, such as climbing, lifting,
-                            balancing, walking, stooping, and handling of
-                            materials.
-                          </li>
-                        </ul>
-                        <Link to="/editar-vaga/:id" class="btn btn-common btn-sm">
+                        <p>
+                          {dados.beneficios}
+                        </p>
+                        <Link to={`/editar-vaga/${id}`} class="btn btn-common btn-sm">
                           Editar Vaga
                         </Link>
+                            
+                    <Link to="/editar-vaga/:id" class="btn btn-common btn-sm" style={{background: 'red', marginLeft: '10px'}}>
+                      Apagar Vaga
+                    </Link>
                       </div>
                     </div>
                   </div>
@@ -202,22 +139,16 @@ export default function Detalhe() {
                 <div class="">
                   <div class="basic-information">
                     <h4>
-                      <a href="#">LemonKids LLC</a>
+                      <a href="#">{empresa.nome}</a>
                     </h4>
                     <p>
                       LemonKids LLC. In marketing communications, we dream it
                       and create it. All of the company’s promotional and
                       communication needs are completed in-house.
                     </p>
-                    <strong>Industry</strong>
+                    <strong>Area</strong>
                     <p>Insurance</p>
-                    <strong>Type of Business Entity</strong>
-                    <p>Sole Proprietorship</p>
-                    <strong>Established In</strong>
-                    <p>01 January, 2000</p>
-                    <strong>No. of Employees</strong>
-                    <p>105</p>
-                    <strong>Location</strong>
+                    <strong>Localização</strong>
                     <p>New York, NY </p>
                   </div>
                 </div>

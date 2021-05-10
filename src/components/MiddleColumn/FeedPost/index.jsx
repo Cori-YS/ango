@@ -1,4 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import { useParams} from 'react-router-dom'
+import Api from '../../../services/api'
+import { useAuth} from '../../../auth'
 
 import Panel from '../../Panel';
 
@@ -18,26 +21,59 @@ import {
 
 
 const FeedPost= ({Id, data, nomeVaga, nomeEmpresa,overView, setor, idEmpresa}) => {
-  const [Active, setActive] =useState('false')
-  function countdown(){
-    setActive(!Active)
+  const { getUser} =useAuth()
+  const [user, setUser] = useState({})
+  const [Active, setActive] =useState(false)
+  const [vagaId, setVagaId]= useState(false)
+
+  const {id} = useParams()
+  async function countdown(){
+  
+
+    if (Active) {
+      await Api.post('/solicitar/del', {vaga:id,candidato:user.id })
+      setActive(!Active)
+    }else {
+      await Api.post('/solicitar', {vaga:id,candidato:user.id })
+      setActive(!Active)
+    }
+  
     let secondsToGo = 5;
-    let title =Active ? 'A sua candidatura sera enviada': 'A remover candidatura em breve'
-  const modal = Modal.success({
-    title:title ,
-    content: `Em ${secondsToGo} segundos.`,
-  });
-  const timer = setInterval(() => {
-    secondsToGo -= 1;
-    modal.update({
+    let title =Active ? 'A remover candidatura em breve':  'A sua candidatura sera enviada'
+      
+    const modal = Modal.success({
+      title:title ,
       content: `Em ${secondsToGo} segundos.`,
     });
-  }, 1000);
-  setTimeout(() => {
-    clearInterval(timer);
-    modal.destroy();
-  }, secondsToGo * 1000);
-  }
+    
+    const timer = setInterval(() => {
+      secondsToGo -= 1;
+      modal.update({
+        content: `Em ${secondsToGo} segundos.`,
+      });
+    }, 1000);
+    setTimeout(() => {
+      clearInterval(timer);
+      modal.destroy();
+    }, secondsToGo * 1000);
+    }
+
+    
+  useEffect(()=>{
+    setUser(getUser())
+    function receber(id){
+
+    Api.post('solicitars',{vaga:id, candidato:user.id}).then((data)=>{
+      console.log(data.data.sucesso, 'ismelio')
+      setVagaId(data.data.sucesso)
+      setActive(data.data.sucesso)
+  }).catch((e)=>{
+  console.log(e, 'erro')
+  }) 
+    } 
+    receber(id)
+    
+  },[])
 
   return (
     <>
@@ -75,8 +111,8 @@ const FeedPost= ({Id, data, nomeVaga, nomeEmpresa,overView, setor, idEmpresa}) =
          
           <button style={{ borderRadius:"4px"}} onClick={countdown} >
             <SendIcon />
-            {Active && ( <span>Candidatar-me</span>)}
-            {!Active && ( <span>Remover Candidatura</span>)}
+            {!Active && ( <span>Candidatar-me</span>)}
+            {Active && ( <span>Remover Candidatura</span>)}
            
           </button>
         </Row>
