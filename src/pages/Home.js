@@ -1,16 +1,14 @@
-import React,  {useEffect, useState}from "react";
-import Api from '../services/api'
+import React, { useEffect, useState } from "react";
+import Api from "../services/api";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 import { Carousel } from "antd";
 import "antd/dist/antd.css";
 export default function Home() {
-const [Empresa, setEmprsas] =useState(0);
-const [Candidatos, setCandidato] =useState(0);
-const [Vaga, setVagas] =useState(0);
-
-
+  const [Empresa, setEmprsas] = useState(0);
+  const [Candidatos, setCandidato] = useState(0);
+  const [Vaga, setVagas] = useState(0);
 
   const contentStyle = {
     height: "160px",
@@ -19,21 +17,18 @@ const [Vaga, setVagas] =useState(0);
     textAlign: "center",
     background: "#364d79",
   };
- 
-  useEffect(()=>{
-   async function teste(){
- const dados= await Api.get('home');
- const {Empresas, Candidato, Vagas} =dados.data
- setEmprsas(Empresas)
-setCandidato(Candidato)
-setVagas(Vagas)
+
+  useEffect(() => {
+    async function teste() {
+      const dados = await Api.get("home");
+      const { Empresas, Candidato, Vagas } = dados.data;
+      setEmprsas(Empresas);
+      setCandidato(Candidato);
+      setVagas(Vagas);
     }
 
     teste();
-  }, [])
-  
-
-
+  }, []);
 
   return (
     <>
@@ -45,12 +40,18 @@ setVagas(Vagas)
               Procurando um emprego, estagio, ou querendo divulgar vagas para a
               sua empresa? Está no melhor lugar
             </h2>
-            <Link to='/criar-conta'> <button type="button" style={{ borderRadius: "4px" }}>
-              Registar candidato
-            </button></Link> 
-           <Link to='/cadastro-empresa'> <button type="button" style={{ borderRadius: "4px" }}>
-              Registar empresa
-            </button></Link>
+            <Link to="/criar-conta">
+              {" "}
+              <button type="button" style={{ borderRadius: "4px" }}>
+                Registar candidato
+              </button>
+            </Link>
+            <Link to="/cadastro-empresa">
+              {" "}
+              <button type="button" style={{ borderRadius: "4px" }}>
+                Registar empresa
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -126,7 +127,10 @@ setVagas(Vagas)
       </section>
 
       <section style={{ backgroundColor: "#299be8" }}>
-        <div class="container">
+        <div
+          class="container"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
           <div class="col-md-3 col-sm-3">
             <div class="counter-text">
               <span aria-hidden="true" class="icon-briefcase"></span>
@@ -301,9 +305,7 @@ setVagas(Vagas)
                 </div>
                 <div class="job-list-content">
                   <h4>
-                    <Link to="/entrar">
-                      Fullstack web developer needed
-                    </Link>
+                    <Link to="/entrar">Fullstack web developer needed</Link>
                     <span class="full-time">Integral</span>
                   </h4>
                   <p>
@@ -339,40 +341,6 @@ setVagas(Vagas)
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-12">
-              <div class="showing pull-left">
-                <a href="#">
-                  Mostrando <span>6-10</span> De 24 Vagas
-                </a>
-              </div>
-              <ul class="pagination pull-right">
-                <li class="active">
-                  <a href="#" class="btn btn-common">
-                    <i class="ti-angle-left"></i> Anterior
-                  </a>
-                </li>
-                <li>
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="active">
-                  <a href="#" class="btn btn-common">
-                    Proximo <i class="ti-angle-right"></i>
-                  </a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
