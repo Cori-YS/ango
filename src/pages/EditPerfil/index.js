@@ -1,129 +1,129 @@
-import React, {useRef, useEffect, useState} from "react";
-import * as yup from 'yup';
-import { Form} from '@unform/web';
-import  Input  from '../../components/components/fields/Input';
-import Select from '../../components/components/fields/Select';
+import React, { useRef, useEffect, useState } from "react";
+import * as yup from "yup";
+import { Form } from "@unform/web";
+import Input from "../../components/components/fields/Input";
+import Select from "../../components/components/fields/Select";
 import DesktopHeader from "../../components/DesktopHeader";
 import MobileHeader from "../../components/MobileHeader";
-import ReactDOM from "react-router-dom"
-import Api from '../../services/api';
-import {toast} from "react-toastify";
+import ReactDOM from "react-router-dom";
+import Api from "../../services/api";
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Editar() {
-
+  const { id } = useParams();
   const [provincia, setProvincia] = useState([]);
-  const [pais, setPais]= useState([]);
-  const [area, setArea]= useState([]);
+  const [pais, setPais] = useState([]);
+  const [area, setArea] = useState([]);
 
   const schema = yup.object({
-      telefone: yup.number().min(9).positive(),
-      nascimento: yup.date(),
-      pais: yup.string(),
-      provincia: yup.string(),
-      sobremim: yup.string(),
-      responsabilidade: yup.string(),
-      habilidade: yup.string(),
-      area: yup.string()
-    })
+    telefone: yup.number().min(9).positive(),
+    nascimento: yup.date(),
+    pais: yup.string(),
+    provincia: yup.string(),
+    sobremim: yup.string(),
+    responsabilidade: yup.string(),
+    habilidade: yup.string(),
+    area: yup.string(),
+  });
 
-    async function handleSubmit (data, {reset}){
-      try{
-       await schema.validate(data, {
-         abortEarly: false,
-       });
-       reset();
-      }catch (err){
-       if (err instanceof yup.ValidationError) {
-         const errorMessages = {};
-     
-         err.inner.forEach((error) => {
-           errorMessages[error.path] = error.message;
-         });
-     
-         formRef.current.setErrors(errorMessages);
-         }
-         return;
-       }
-     
-       try {
-        data.owner="candidato"
-        await Api.post('candidato', {data});
-     
-       }
-       catch (err) {
-     
-     
-       }
-     }
-     const formRef = useRef(null);
+  async function handleSubmit(data, { reset }) {
+    try {
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+      reset();
+    } catch (err) {
+      if (err instanceof yup.ValidationError) {
+        const errorMessages = {};
 
-     useEffect(()=>{
-      function receber(){
-   
-       Api.get('localizacao').then((e)=>{
-        var aux= e.data.provincia.map((e)=>(
-           {
-             label:e.nome,
-             value:e._id
-           }
-         ));
-         var aux1= e.data.pais.map((e)=>(
-           {
-             label:e.nome,
-             value:e._id
-           }
-         ));
-         setPais(aux1)
-         setProvincia(aux)
-         
-       }).catch(e =>{
-         console.log(e, 'err')
-       })
-       
+        err.inner.forEach((error) => {
+          errorMessages[error.path] = error.message;
+        });
 
-       Api.get('trabalho').then((e)=>{
-        var aux= e.data.area.map((e)=>(
-           {
-             label:e.nome,
-             value:e._id
-           }
-         ));
-         setArea(aux)
-         
-       }).catch(e =>{
-         console.log(e, 'err')
-       })
-       
-   }
-   
-    receber()
-   
-   }, [])
+        formRef.current.setErrors(errorMessages);
+      }
+      return;
+    }
+
+    try {
+      data.idUser = id;
+      data.owner = "candidato";
+      await Api.post("candidato", { data });
+    } catch (err) {}
+  }
+  const formRef = useRef(null);
+
+  useEffect(() => {
+    function receber() {
+      Api.get("localizacao")
+        .then((e) => {
+          var aux = e.data.provincia.map((e) => ({
+            label: e.nome,
+            value: e._id,
+          }));
+          var aux1 = e.data.pais.map((e) => ({
+            label: e.nome,
+            value: e._id,
+          }));
+          setPais(aux1);
+          setProvincia(aux);
+        })
+        .catch((e) => {
+          console.log(e, "err");
+        });
+
+      Api.get("trabalho")
+        .then((e) => {
+          var aux = e.data.area.map((e) => ({
+            label: e.nome,
+            value: e._id,
+          }));
+          setArea(aux);
+        })
+        .catch((e) => {
+          console.log(e, "err");
+        });
+    }
+
+    receber();
+  }, []);
 
   return (
     <>
-    
       <section class="login-wrapper">
         <div class="container1">
-          <Form class="container" schema={schema} onSubmit={handleSubmit} ref={formRef} style={{border: '1px solid #299be8', width: '410px', height: '900px', margin: 'auto'}}>
-            
+          <Form
+            class="container"
+            schema={schema}
+            onSubmit={handleSubmit}
+            ref={formRef}
+            style={{
+              border: "1px solid #299be8",
+              width: "410px",
+              height: "900px",
+              margin: "auto",
+            }}
+          >
             <div class="row">
               <div class="col-md-8">
                 <div class="form-group" style={{ display: "inline-block" }}>
-                  
                   <div class="input-group">
-                    <div class="custom-file">
-                    </div>
+                    <div class="custom-file"></div>
                   </div>
                 </div>
               </div>
-              
-              
+
               <div class="col-md-8" style={{ right: "0" }}>
-                <Input type="tel" name="telefone" class="form-control" placeholder="Telefone" style={{width: '350px', margin: '10px auto'}}/>
+                <Input
+                  type="tel"
+                  name="telefone"
+                  class="form-control"
+                  placeholder="Telefone"
+                  style={{ width: "350px", margin: "10px auto" }}
+                />
               </div>
-              
-              
+
               <div class="col-md-8">
                 <label for="sobremim" class="form-label">
                   Sobre Mim
@@ -134,7 +134,11 @@ export default function Editar() {
                   name="sobremim"
                   id="sobre-mim"
                   placeholder="..."
-                  style={{width: '350px', height: '100px', margin: '10px auto'}}
+                  style={{
+                    width: "350px",
+                    height: "100px",
+                    margin: "10px auto",
+                  }}
                 />
               </div>
 
@@ -148,7 +152,11 @@ export default function Editar() {
                   name="responsabilidade"
                   id="responsabilidade"
                   placeholder="..."
-                  style={{width: '350px', height: '100px', margin: '10px auto'}}
+                  style={{
+                    width: "350px",
+                    height: "100px",
+                    margin: "10px auto",
+                  }}
                 />
               </div>
 
@@ -162,7 +170,11 @@ export default function Editar() {
                   name="habilidade"
                   id="habilidades"
                   placeholder="..."
-                  style={{width: '350px', height: '100px', margin: '10px auto'}}
+                  style={{
+                    width: "350px",
+                    height: "100px",
+                    margin: "10px auto",
+                  }}
                 />
               </div>
               <div class="col-md-8">
@@ -174,8 +186,8 @@ export default function Editar() {
                   placeholder="Escolha o pais"
                   name="pais"
                   data={pais}
-                  style={{width: '350px', margin: '10px auto'}}
-                  />
+                  style={{ width: "350px", margin: "10px auto" }}
+                />
               </div>
 
               <div class="col-md-8">
@@ -187,8 +199,8 @@ export default function Editar() {
                   placeholder="Escolha a provincia"
                   name="provincia"
                   data={provincia}
-                  style={{width: '350px', margin: '10px auto'}}
-                  />
+                  style={{ width: "350px", margin: "10px auto" }}
+                />
               </div>
               <div class="col-md-8">
                 <label for="area" class="form-label">
@@ -199,12 +211,16 @@ export default function Editar() {
                   placeholder="Escolha a area"
                   name="area"
                   data={area}
-                  style={{width: '350px', margin: '10px auto'}}
-                  />
+                  style={{ width: "350px", margin: "10px auto" }}
+                />
               </div>
               <div class="col-md-8">
                 <div class="col-md-8">
-                  <button type="submit" class="btn btn-primary" style={{margin: "20px"}}>
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    style={{ margin: "20px" }}
+                  >
                     Editar
                   </button>
                 </div>
