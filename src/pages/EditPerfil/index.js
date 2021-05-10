@@ -49,7 +49,11 @@ export default function Editar() {
     try {
       data.idUser = id;
       data.owner = "candidato";
-      await Api.post("candidato", { data });
+      const aux = await Api.post("/editarPerfil", { data });
+
+      if (aux.data.sucesso) {
+        toast.success("Edição feita com sucesso");
+      }
     } catch (err) {}
   }
   const formRef = useRef(null);
