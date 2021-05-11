@@ -4,6 +4,8 @@ import { useParams} from 'react-router-dom'
 import Api from '../../services/api'
 import { Modal} from 'antd';
 import { useAuth} from '../../auth'
+import DesktopHeader from "../../components/DesktopHeaderImgE";
+import MobileHeader from "../../components/MobileHeaderImgE";
 
 export default function Detalhe() {
 
@@ -32,6 +34,8 @@ export default function Detalhe() {
 
   return (
     <>
+    <DesktopHeader className="mt-8" />
+    <MobileHeader />
       <section class="job-detail section">
         <div class="container">
           <div class="row">
@@ -59,6 +63,9 @@ export default function Detalhe() {
                     </a>
                     <Link to={`/editar-vaga/${id}`} class="btn btn-common btn-sm" style={{marginTop: '20px'}}>
                       Editar Vaga
+                    </Link>
+                    <Link to={`/lista-candidatos/${id}`} class="btn btn-common btn-sm" style={{marginTop: '20px'}}>
+                      Lista de Candidatos
                     </Link>
                   </div>
                   <div class="clearfix">

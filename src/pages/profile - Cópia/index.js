@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import Avatar from "./avatar";
 import { Form } from "@unform/web";
+import DesktopHeader from "../../components/DesktopHeaderImgE";
+import MobileHeader from "../../components/MobileHeaderImgE";
 import { Link } from 'react-router-dom'
 export default function Perfil() {
   const formRef = useRef();
@@ -9,6 +11,8 @@ export default function Perfil() {
   };
   return (
     <>
+    <DesktopHeader className="mt-8" />
+    <MobileHeader />
       <section class="profile-detail">
         <div class="container">
           <div class="col-md-12">
@@ -35,11 +39,6 @@ export default function Perfil() {
                       </li>
                       <li>
                         <span>Data de Nascimento:</span>19 Agosto 2001
-                      </li>
-                      <li>
-                        <Link to="" class="btn btn-common btn-sm" href="#">
-                          Iniciar Conversa
-                        </Link>
                       </li>
                     </ul>
                   </div>

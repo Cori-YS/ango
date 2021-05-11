@@ -1,0 +1,4 @@
+
+label {display:block;}
+input {width: 100%;} /* define a largura do campo igual a largura do container */
+input,  button {padding: 10px;}

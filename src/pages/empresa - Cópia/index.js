@@ -1,9 +1,14 @@
 import React from "react";
 import { Link } from 'react-router-dom'
 
+import DesktopHeader from "../../components/DesktopHeaderImg";
+import MobileHeader from "../../components/MobileHeaderImg";
+
 export default function Empresa() {
   return (
     <>
+    <DesktopHeader className="mt-8" />
+    <MobileHeader />
       <section class="profile-detail">
         <div class="container">
           <div class="col-md-12">

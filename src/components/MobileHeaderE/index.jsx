@@ -9,7 +9,7 @@ const MobileHeader = () => {
       <Link to="/perfil-empresa/:id">
       <ProfileCircle src="img/raul.jpg" alt="" />
       </Link>
-      <Link to="/procurar">
+      <Link to="/procurare">
       <SearchInput placeholder="Pesquisar" />
       </Link>
       

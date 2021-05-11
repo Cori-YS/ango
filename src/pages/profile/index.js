@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import {useAuth} from '../../auth';
 import { useParams} from 'react-router-dom'
 import Api from '../../services/api'
+import DesktopHeader from "../../components/DesktopHeaderImg";
+import MobileHeader from "../../components/MobileHeaderImg";
 
 export default function Perfil() {
   const {id} = useParams()
@@ -29,6 +31,8 @@ export default function Perfil() {
 
   return (
     <>
+    <DesktopHeader className="mt-8" />
+    <MobileHeader />
       <section class="profile-detail">
         <div class="container">
           <div class="col-md-12">

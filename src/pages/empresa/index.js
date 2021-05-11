@@ -1,6 +1,9 @@
 import React, {useState, useEffect} from "react";
 import { Link } from 'react-router-dom'
 import {useAuth} from '../../auth';
+
+import DesktopHeader from "../../components/DesktopHeaderImgE";
+import MobileHeader from "../../components/MobileHeaderImgE";
 export default function Empresa() {
 
   const { getUser} =useAuth()
@@ -12,6 +15,8 @@ export default function Empresa() {
 
   return (
     <>
+    <DesktopHeader className="mt-8" />
+    <MobileHeader />
       <section class="profile-detail">
         <div class="container">
           <div class="col-md-12">
