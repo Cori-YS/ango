@@ -13,7 +13,8 @@ export default function RouteWrapper({
 }) {
   const signed = isAuth();
   //
-  // const {getUser}=useAuth();
+  const { getUser } = useAuth();
+
   if (!signed && isPrivate) {
     return <Navigate to="/home" />;
   }
