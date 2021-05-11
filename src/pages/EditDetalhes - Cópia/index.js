@@ -1,13 +1,20 @@
-import React, {useRef} from "react";
+import React, {useRef, useState, useEffect} from "react";
 import * as yup from 'yup';
 import { Form} from '@unform/web';
 import  Input  from '../../components/components/fields/Input';
 import Select from '../../components/components/fields/Select';
 import { Link } from 'react-router-dom'
 import {toast} from "react-toastify";
+import { useAuth} from '../../auth'
+import Api from '../../services/api';
+import DesktopHeader from "../../components/DesktopHeaderImgE";
+import MobileHeader from "../../components/MobileHeaderImgE";
 
 export default function EditarDetalhes() {
 
+  const { getUser} = useAuth()
+  const [setor, setSetor]=useState([])
+  const [user, setUser] = useState({});
   const tipo = [{label: 'Estágio', value: '1'}, {label: 'Integral', value: '2'}];
 
   const schema = yup.object({
@@ -49,11 +56,38 @@ export default function EditarDetalhes() {
    }
    const formRef = useRef(null);
 
+   useEffect(()=>{   function receber(){
+    Api.get('/trabalho').then((data)=>{
+ console.log(data, "ismelio")
+
+    var aux= data.data.setor.map((e)=>(
+ 
+     {
+       label:e.nome,
+       value: e._id
+     }
+    )
+    
+    )
+     setSetor(aux)
+   }).catch((e) => {
+     console.log(e)
+   }) 
+    }
+    receber()
+}, [])
+
+useEffect(() => {
+ 
+ 
+ setUser(getUser());
+ }, [getUser]);
+
   return (
     <>
-    <Link to="/principal-empresa">
-    <h1>AngoSalo</h1>
-    </Link>
+    
+    <DesktopHeader className="mt-8" />
+    <MobileHeader />
     
       <section class="login-wrapper">
         <div class="container1">
@@ -152,7 +186,7 @@ export default function EditarDetalhes() {
                   class="form-control"
                   placeholder="Escolha o Setor"
                   name="setor"
-                  data={[]}
+                  data={setor}
                   />
               </div>
 

@@ -3,18 +3,20 @@ import * as yup from "yup";
 import { Form } from "@unform/web";
 import Input from "../../components/components/fields/Input";
 import Select from "../../components/components/fields/Select";
+import TextArea from "../../components/components/fields/TextArea";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import Api from "../../services/api";
+import DesktopHeader from "../../components/DesktopHeaderImgE";
+import MobileHeader from "../../components/MobileHeaderImgE";
 export default function EditarEmpresa() {
   const { id } = useParams();
   const [provincia, setProvincia] = useState([]);
   const [pais, setPais] = useState([]);
   const [area, setArea] = useState([]);
   const schema = yup.object({
-    nome: yup.string(),
-    website: yup.string(),
-    telefone: yup.string(),
+    website: yup.string().url(),
+    telefone: yup.number().min(9),
     pais: yup.string(),
     provincia: yup.string(),
     sobremim: yup.string(),
@@ -89,6 +91,8 @@ export default function EditarEmpresa() {
   }, []);
   return (
     <>
+    <DesktopHeader className="mt-8" />
+    <MobileHeader />
       <section class="login-wrapper">
         <div class="container1">
           <Form
@@ -99,35 +103,19 @@ export default function EditarEmpresa() {
             style={{
               border: "1px solid #299be8",
               width: "410px",
-              height: "1650px",
+              height: "1100px",
               margin: "auto",
             }}
           >
             <div class="row">
               <div class="col-md-8">
                 <div class="form-group" style={{ display: "inline-block" }}>
-                  <label for="exampleInputFile">Imagem de Perfil</label>
-                  <div class="input-group">
-                    <div class="custom-file">
-                      <Input
-                        type="file"
-                        name="imagem"
-                        class="custom-file-input"
-                        id="exampleInputFile"
-                      />
-                    </div>
-                  </div>
+                  
                 </div>
               </div>
 
               <div class="col-md-8" style={{ right: "0" }}>
-                <Input
-                  type="name"
-                  name="nome"
-                  class="form-control"
-                  placeholder="Nome"
-                  style={{ width: "350px", margin: "10px auto" }}
-                />
+                
               </div>
               <div class="col-md-8" style={{ right: "0" }}>
                 <Input
@@ -148,6 +136,76 @@ export default function EditarEmpresa() {
                 />
               </div>
 
+              
+              <div class="col-md-8">
+                <label for="sobre-mim" class="form-label">
+                  Sobre
+                </label>
+                <TextArea
+                  type="text"
+                  class="form-control"
+                  name="sobremim"
+                  placeholder="..."
+                  style={{
+                    width: "350px",
+                    height: "100px",
+                    margin: "10px auto",
+                  }}
+                />
+              </div>
+
+              <div class="col-md-8">
+                <label for="responsabilidade" class="form-label">
+                  Responsabilidades
+                </label>
+                <TextArea
+                  type="text"
+                  class="form-control"
+                  name="responsabilidade"
+                  id="responsabilidade"
+                  placeholder="..."
+                  style={{
+                    width: "350px",
+                    height: "100px",
+                    margin: "10px auto",
+                  }}
+                />
+              </div>
+
+              <div class="col-md-8">
+                <label for="qualificacoes-minimas" class="form-label">
+                  Qualificacoes Minimas
+                </label>
+                <TextArea
+                  type="text"
+                  class="form-control"
+                  name="qualificacoesminimas"
+                  id="qualificacoes-minimas"
+                  placeholder="..."
+                  style={{
+                    width: "350px",
+                    height: "100px",
+                    margin: "10px auto",
+                  }}
+                />
+              </div>
+              <div class="col-md-8">
+                <label for="qualificacoes-perferidas" class="form-label">
+                  Qualificacoes Perferidas
+                </label>
+                <TextArea
+                  type="text"
+                  class="form-control"
+                  name="qualificacoesperferidas"
+                  id="qualificacoes-perferidas"
+                  placeholder="..."
+                  style={{
+                    width: "350px",
+                    height: "100px",
+                    margin: "10px auto",
+                  }}
+                />
+              </div>
               <div class="col-md-8">
                 <label for="pais" class="form-label">
                   Pais
@@ -171,75 +229,6 @@ export default function EditarEmpresa() {
                   name="provincia"
                   data={provincia}
                   style={{ width: "350px", margin: "10px auto" }}
-                />
-              </div>
-              <div class="col-md-8">
-                <label for="sobre-mim" class="form-label">
-                  Sobre
-                </label>
-                <Input
-                  type="text"
-                  class="form-control"
-                  name="sobremim"
-                  placeholder="..."
-                  style={{
-                    width: "350px",
-                    height: "100px",
-                    margin: "10px auto",
-                  }}
-                />
-              </div>
-
-              <div class="col-md-8">
-                <label for="responsabilidade" class="form-label">
-                  Responsabilidades
-                </label>
-                <Input
-                  type="text"
-                  class="form-control"
-                  name="responsabilidade"
-                  id="responsabilidade"
-                  placeholder="..."
-                  style={{
-                    width: "350px",
-                    height: "100px",
-                    margin: "10px auto",
-                  }}
-                />
-              </div>
-
-              <div class="col-md-8">
-                <label for="qualificacoes-minimas" class="form-label">
-                  Qualificacoes Minimas
-                </label>
-                <Input
-                  type="text"
-                  class="form-control"
-                  name="qualificacoesminimas"
-                  id="qualificacoes-minimas"
-                  placeholder="..."
-                  style={{
-                    width: "350px",
-                    height: "100px",
-                    margin: "10px auto",
-                  }}
-                />
-              </div>
-              <div class="col-md-8">
-                <label for="qualificacoes-perferidas" class="form-label">
-                  Qualificacoes Perferidas
-                </label>
-                <Input
-                  type="text"
-                  class="form-control"
-                  name="qualificacoesperferidas"
-                  id="qualificacoes-perferidas"
-                  placeholder="..."
-                  style={{
-                    width: "350px",
-                    height: "100px",
-                    margin: "10px auto",
-                  }}
                 />
               </div>
               <div class="col-md-8">

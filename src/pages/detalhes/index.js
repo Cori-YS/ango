@@ -3,6 +3,8 @@ import { useParams} from 'react-router-dom'
 import Api from '../../services/api'
 import { Modal} from 'antd';
 import { useAuth} from '../../auth'
+import DesktopHeader from "../../components/DesktopHeaderImg";
+import MobileHeader from "../../components/MobileHeaderImg";
 
 export default function Detalhe() {
   const { getUser} =useAuth()
@@ -82,6 +84,8 @@ const [vagaId, setVagaId]= useState(false)
 
   return (
     <>
+    <DesktopHeader className="mt-8" />
+    <MobileHeader />
 
   <section class="job-detail section">
         <div class="container">

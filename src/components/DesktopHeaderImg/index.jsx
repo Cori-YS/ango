@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useMemo} from "react";
 import { Link } from "react-router-dom";
+import { useParams} from 'react-router-dom'
+import Api from '../../services/api'
+import { Modal} from 'antd';
+import { useAuth} from '../../auth'
 
 import {
   Container,
@@ -19,8 +23,6 @@ import {
 //import Api from "";
 import {parseISO, formatDistance} from "date-fns";
 import pt from "date-fns/locale/pt";
-
-import {useAuth } from '../../auth'
 const DesktopHeader= () => {
   const [visible, setVisible]= useState(false);
   const [notifications, setNotifications]= useState([]);
@@ -60,27 +62,32 @@ setNotifications(
     )
 )
  } */
-const { getUser} =useAuth();
- const [user, setUser]= useState({})
+
+ 
+ const { getUser} =useAuth()
+ const [user, setUser] = useState({})
+
  useEffect(()=>{
-   setUser(getUser())
- },[])
+  setUser(getUser())  
+},[])
+
+
   return (
     <Container>
       <Wrapper>
         <div className="left">
-          <Link to="/principal-empresa">
-          <LinkDinIcon src="img/logo.png" alt="" style={{width: "90px"}}/>
+          <Link to="/principal">
+          <h1 style={{color: '#fff', fontSize: '24px'}}>AngoSalo</h1>
           </Link>
 
-          <Link to="/procurare">
+          <Link to="/procurar">
           <SearchInput placeholder="pesquisar" />
           </Link>
           
         </div>
         <div className="right">
           <nav>
-            <Link to="/principal-empresa">
+            <Link to="/principal">
             <button className="active">
               <HomeIcon />
             </button>
@@ -122,10 +129,9 @@ const { getUser} =useAuth();
                 </NotificationList>
 
               </ContainerNotif>
-            
-            <Link to={`/perfil-empresa/${user.id}`}>
+            <Link to={`/perfil/${user.id}`}>
             <button>
-              <ProfileCircle src="img/raul.jpg" alt=""  />
+              <span>Perfil</span>
             </button>
             </Link>
           </nav>

@@ -11,6 +11,7 @@ import DetalhesE from "./pages/detalhes - Cópia";
 import EditarDetalhes from "./pages/EditDetalhes";
 import Editar_Detalhes from "./pages/EditDetalhes - Cópia";
 import Procurar from "./pages/procurar";
+import ProcurarE from "./pages/procurarE";
 import Empresa from "./pages/empresa";
 import EmpresaVer from "./pages/empresa - Cópia";
 import EditarPerfil from "./pages/EditPerfil";
@@ -138,7 +139,7 @@ const routes = [
     element: Procurar
   },
   {
-    path: "/lista-candidatos",
+    path: "/lista-candidatos/:id",
     element: listaUser
   },
   {
@@ -158,7 +159,11 @@ const routes = [
   {
     path: "/perfil-ver/:id",
     element: PerfilVer
-  }
+  },
+  {
+    path: "/procurare",
+    element: ProcurarE
+  },
   
 ];
 

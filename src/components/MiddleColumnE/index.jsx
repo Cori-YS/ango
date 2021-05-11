@@ -16,13 +16,15 @@ const MiddleColumnE = () => {
   const [tag, setTag]= useState(<>,</>)
 
   useEffect(()=>{
+    setUser(getUser())
+    console.log(user.id, 'isme')
     function receber (){
-      Api.get('/vaga').then((data)=>{
+      Api.get(`vaga/${user.id}`).then((data)=>{
        console.log('rau', data.data.Listagem)
        setDados(data.data.Listagem)
       }).catch((e)=>{
-        alert()
         console.error(e)
+        console.log(user.id, 'isme')
       })
     }
   

@@ -3,8 +3,9 @@ import * as yup from "yup";
 import { Form } from "@unform/web";
 import Input from "../../components/components/fields/Input";
 import Select from "../../components/components/fields/Select";
-import DesktopHeader from "../../components/DesktopHeader";
-import MobileHeader from "../../components/MobileHeader";
+
+import DesktopHeader from "../../components/DesktopHeaderImg";
+import MobileHeader from "../../components/MobileHeaderImg";
 import ReactDOM from "react-router-dom";
 import Api from "../../services/api";
 import { useParams } from "react-router-dom";
@@ -95,6 +96,8 @@ export default function Editar() {
 
   return (
     <>
+    <DesktopHeader className="mt-8" />
+    <MobileHeader />
       <section class="login-wrapper">
         <div class="container1">
           <Form

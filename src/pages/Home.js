@@ -9,6 +9,8 @@ export default function Home() {
   const [Empresa, setEmprsas] = useState(0);
   const [Candidatos, setCandidato] = useState(0);
   const [Vaga, setVagas] = useState(0);
+  const [dados, setDados]=useState([])
+  const [tag, setTag]= useState(<>,</>)
 
   const contentStyle = {
     height: "160px",
@@ -26,7 +28,16 @@ export default function Home() {
       setCandidato(Candidato);
       setVagas(Vagas);
     }
-
+    function receber (){
+      Api.get('/vaga').then((data)=>{
+       console.log('rau', data.data.Listagem)
+       setDados(data.data.Listagem)
+      }).catch((e)=>{
+        alert()
+        console.error(e)
+      })
+    }
+    receber()
     teste();
   }, []);
 
@@ -165,6 +176,9 @@ export default function Home() {
           <h2 class="section-title">Vagas em alta</h2>
           <div class="row">
             <div class="col-md-12">
+
+
+            {dados.slice(0, 5).map((e)=>(
               <div class="job-list">
                 <div class="thumb">
                   <Link to="/entrar">
@@ -173,28 +187,22 @@ export default function Home() {
                 </div>
                 <div class="job-list-content">
                   <h4>
-                    <Link to="/entrar">Need a web designer</Link>
-                    <span class="full-time">Integral</span>
+                    <Link to="/entrar">{e.nome}</Link>
+                    <span class="full-time">
+                      {e.tipoVaga =="1" && "Estagio"}
+                      {e.tipoVaga =="2" && "Integral"}
+                    </span>
                   </h4>
                   <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Illum quaerat aut veniam molestiae atque dolorum omnis
-                    temporibus consequuntur saepe. Nemo atque consectetur saepe
-                    corporis odit in dicta reprehenderit, officiis, praesentium?
+                    {e.overview}
                   </p>
                   <div class="job-tag">
                     <div class="pull-left">
                       <div class="meta-tag">
                         <span>
                           <Link to="/entrar">
-                            <i class="ti-brush"></i>Art/Design
+                            <i class="ti-brush"></i>{e.setor.nome}
                           </Link>
-                        </span>
-                        <span>
-                          <i class="ti-location-pin"></i>Washington, USA
-                        </span>
-                        <span>
-                          <i class="ti-time"></i>60/Horas
                         </span>
                       </div>
                     </div>
@@ -209,138 +217,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div class="job-list">
-                <div class="thumb">
-                  <Link to="/entrar">
-                    <img src="assets/img/jobs/img-2.jpg" alt="" />
-                  </Link>
-                </div>
-                <div class="job-list-content">
-                  <h4>
-                    <Link to="/entrar">Front-end developer needed</Link>
-                    <span class="full-time">Integral</span>
-                  </h4>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Illum quaerat aut veniam molestiae atque dolorum omnis
-                    temporibus consequuntur saepe. Nemo atque consectetur saepe
-                    corporis odit in dicta reprehenderit, officiis, praesentium?
-                  </p>
-                  <div class="job-tag">
-                    <div class="pull-left">
-                      <div class="meta-tag">
-                        <span>
-                          <Link to="/entrar">
-                            <i class="ti-desktop"></i>Technologies
-                          </Link>
-                        </span>
-                        <span>
-                          <i class="ti-location-pin"></i>Cupertino, CA, USA
-                        </span>
-                        <span>
-                          <i class="ti-time"></i>60/Horas
-                        </span>
-                      </div>
-                    </div>
-                    <div class="pull-right">
-                      <div class="icon">
-                        <i class="ti-heart"></i>
-                      </div>
-                      <Link to="/entrar" class="btn btn-common btn-rm">
-                        Mais Detalhes
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="job-list">
-                <div class="thumb">
-                  <Link to="/entrar">
-                    <img src="assets/img/jobs/img-3.jpg" alt="" />
-                  </Link>
-                </div>
-                <div class="job-list-content">
-                  <h4>
-                    <Link to="/entrar">Senior Accountant</Link>
-                    <span class="part-time">Estágio</span>
-                  </h4>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Illum quaerat aut veniam molestiae atque dolorum omnis
-                    temporibus consequuntur saepe. Nemo atque consectetur saepe
-                    corporis odit in dicta reprehenderit, officiis, praesentium?
-                  </p>
-                  <div class="job-tag">
-                    <div class="pull-left">
-                      <div class="meta-tag">
-                        <span>
-                          <Link to="/entrar">
-                            <i class="ti-home"></i>Finance
-                          </Link>
-                        </span>
-                        <span>
-                          <i class="ti-location-pin"></i>Delaware, USA
-                        </span>
-                        <span>
-                          <i class="ti-time"></i>60/Horas
-                        </span>
-                      </div>
-                    </div>
-                    <div class="pull-right">
-                      <div class="icon">
-                        <i class="ti-heart"></i>
-                      </div>
-                      <Link to="/entrar" class="btn btn-common btn-rm">
-                        Mais Detalhes
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="job-list">
-                <div class="thumb">
-                  <Link to="/entrar">
-                    <img src="assets/img/jobs/img-4.jpg" alt="" />
-                  </Link>
-                </div>
-                <div class="job-list-content">
-                  <h4>
-                    <Link to="/entrar">Fullstack web developer needed</Link>
-                    <span class="full-time">Integral</span>
-                  </h4>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Illum quaerat aut veniam molestiae atque dolorum omnis
-                    temporibus consequuntur saepe. Nemo atque consectetur saepe
-                    corporis odit in dicta reprehenderit, officiis, praesentium?
-                  </p>
-                  <div class="job-tag">
-                    <div class="pull-left">
-                      <div class="meta-tag">
-                        <span>
-                          <Link to="/entrar">
-                            <i class="ti-desktop"></i>Technologies
-                          </Link>
-                        </span>
-                        <span>
-                          <i class="ti-location-pin"></i>New York, USA
-                        </span>
-                        <span>
-                          <i class="ti-time"></i>60/Horas
-                        </span>
-                      </div>
-                    </div>
-                    <div class="pull-right">
-                      <div class="icon">
-                        <i class="ti-heart"></i>
-                      </div>
-                      <Link to="/entrar" class="btn btn-common btn-rm">
-                        Mais Detalhes
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
+            ))}
+              {tag}
+              
             </div>
           </div>
         </div>
@@ -350,211 +230,54 @@ export default function Home() {
         <div class="container">
           <h2 class="section-title">Vagas Recentes</h2>
           <div class="row">
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <div class="featured-item">
-                <div class="featured-wrap">
-                  <div class="featured-inner">
-                    <figure class="item-thumb">
-                      <Link class="hover-effect" to="/entrar">
-                        <img src="assets/img/features/img-1.jpg" alt="" />
-                      </Link>
-                    </figure>
-                    <div class="item-body">
-                      <h3 class="job-title">
-                        <Link to="/entrar">Graphic Designer</Link>
-                      </h3>
-                      <div class="adderess">
-                        <i class="ti-location-pin"></i> Dallas, United States
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="item-foot">
-                  <span>
-                    <i class="ti-calendar"></i> 4 Meses atrás
-                  </span>
-                  <span>
-                    <i class="ti-time"></i> Integral
-                  </span>
-                  <div class="view-iocn">
-                    <Link to="/entrar">
-                      <i class="ti-arrow-right"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <div class="featured-item">
-                <div class="featured-wrap">
-                  <div class="featured-inner">
-                    <figure class="item-thumb">
-                      <Link class="hover-effect" to="/entrar">
-                        <img src="assets/img/features/img-2.jpg" alt="" />
-                      </Link>
-                    </figure>
-                    <div class="item-body">
-                      <h3 class="job-title">
-                        <Link to="/entrar">Software Engineer</Link>
-                      </h3>
-                      <div class="adderess">
-                        <i class="ti-location-pin"></i> Delaware, United States
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="item-foot">
-                  <span>
-                    <i class="ti-calendar"></i> 5 Meses atrás
-                  </span>
-                  <span>
-                    <i class="ti-time"></i> Estágio
-                  </span>
-                  <div class="view-iocn">
-                    <Link to="/entrar">
-                      <i class="ti-arrow-right"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <div class="featured-item">
-                <div class="featured-wrap">
-                  <div class="featured-inner">
-                    <figure class="item-thumb">
-                      <Link class="hover-effect" to="/entrar">
-                        <img src="assets/img/features/img-3.jpg" alt="" />
-                      </Link>
-                    </figure>
-                    <div class="item-body">
-                      <h3 class="job-title">
-                        <Link to="/entrar">Managing Director</Link>
-                      </h3>
-                      <div class="adderess">
-                        <i class="ti-location-pin"></i> NY, United States
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="item-foot">
-                  <span>
-                    <i class="ti-calendar"></i> 3 Meses atrás
-                  </span>
-                  <span>
-                    <i class="ti-time"></i> Integral
-                  </span>
-                  <div class="view-iocn">
-                    <Link to="/entrar">
-                      <i class="ti-arrow-right"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <div class="featured-item">
-                <div class="featured-wrap">
-                  <div class="featured-inner">
-                    <figure class="item-thumb">
-                      <Link class="hover-effect" to="/entrar">
-                        <img src="assets/img/features/img-3.jpg" alt="" />
-                      </Link>
-                    </figure>
-                    <div class="item-body">
-                      <h3 class="job-title">
-                        <Link to="/entrar">Graphic Designer</Link>
-                      </h3>
-                      <div class="adderess">
-                        <i class="ti-location-pin"></i> Washington, United
-                        States
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="item-foot">
-                  <span>
-                    <i class="ti-calendar"></i> 1 Meses atrás
-                  </span>
-                  <span>
-                    <i class="ti-time"></i> Estágio
-                  </span>
-                  <div class="view-iocn">
-                    <Link to="/entrar">
-                      <i class="ti-arrow-right"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <div class="featured-item">
-                <div class="featured-wrap">
-                  <div class="featured-inner">
-                    <figure class="item-thumb">
-                      <Link class="hover-effect" to="/entrar">
-                        <img src="assets/img/features/img-2.jpg" alt="" />
-                      </Link>
-                    </figure>
-                    <div class="item-body">
-                      <h3 class="job-title">
-                        <Link to="/entrar">Software Engineer</Link>
-                      </h3>
-                      <div class="adderess">
-                        <i class="ti-location-pin"></i> Dallas, United States
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="item-foot">
-                  <span>
-                    <i class="ti-calendar"></i> 6 Meses atrás
-                  </span>
-                  <span>
-                    <i class="ti-time"></i> Integral
-                  </span>
-                  <div class="view-iocn">
-                    <Link to="/entrar">
-                      <i class="ti-arrow-right"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4 col-sm-6 col-xs-12">
-              <div class="featured-item">
-                <div class="featured-wrap">
-                  <div class="featured-inner">
-                    <figure class="item-thumb">
-                      <Link class="hover-effect" to="/entrar">
-                        <img src="assets/img/features/img-1.jpg" alt="" />
-                      </Link>
-                    </figure>
-                    <div class="item-body">
-                      <h3 class="job-title">
-                        <Link to="/entrar">Managing Director</Link>
-                      </h3>
-                      <div class="adderess">
-                        <i class="ti-location-pin"></i> NY, United States
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="item-foot">
-                  <span>
-                    <i class="ti-calendar"></i> 7 Meses atrás
-                  </span>
-                  <span>
-                    <i class="ti-time"></i> Estágio
-                  </span>
-                  <div class="view-iocn">
-                    <Link to="/entrar">
-                      <i class="ti-arrow-right"></i>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
+
+          {dados.slice(0, 7).map((e)=>(
+
+
+
+<div class="col-md-4 col-sm-6 col-xs-12">
+  <div class="featured-item">
+    <div class="featured-wrap">
+      <div class="featured-inner">
+        <figure class="item-thumb">
+          <Link class="hover-effect" to="/entrar">
+            <img src="assets/img/features/img-1.jpg" alt="" />
+          </Link>
+        </figure>
+        <div class="item-body">
+          <h3 class="job-title">
+            <Link to="/entrar">{e.nome}</Link>
+          </h3>
+          <div class="adderess">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="item-foot">
+      <span>
+        <i class="ti-calendar"></i> {e.createdAt} atrás
+      </span>
+      <span>
+        <i class="ti-time"></i> {e.tipoVaga =="1" && "Estagio"} {e.tipoVaga =="2" && "Integral"}
+      </span>
+      <div class="view-iocn">
+        <Link to="/entrar">
+          <i class="ti-arrow-right"></i>
+        </Link>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+          //<FeedPost Id={e._id} data={e.createdAt} nomeVaga={e.nome} nomeEmpresa={e.utilizadorId.nome} overView={e.overview} setor ={e.setor.nome} idEmpresa={e.utilizadorId._id}/>
+          ))}
+          {tag}
+
+
           </div>
         </div>
       </section>
@@ -573,7 +296,7 @@ export default function Home() {
               </div>
               <div class="client-info">
                 <h2 class="client-name" style={{ color: " #fff" }}>
-                  Raul Inácio <span>(Project Menager)</span>
+                  Raul Inácio <span>(Desenvolvedor)</span>
                 </h2>
 
                 <p>
@@ -596,7 +319,7 @@ export default function Home() {
               />
               <div class="client-info">
                 <h2 class="client-name" style={{ color: " #fff" }}>
-                  Ismelio Cori <span>(Project Menager)</span>
+                  Ismelio Cori <span>(Designer - Analista)</span>
                 </h2>
               </div>
               <p>
