@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useMemo} from "react";
 import { Link } from "react-router-dom";
-
+import { useParams} from 'react-router-dom'
+import Api from '../../services/api'
+import { Modal} from 'antd';
+import { useAuth} from '../../auth'
 import {
   Container,
   Wrapper,
@@ -58,6 +61,14 @@ setNotifications(
     )
 )
  } */
+
+  const { getUser} =useAuth()
+ const [user, setUser] = useState({})
+
+ useEffect(()=>{
+  setUser(getUser())  
+},[])
+
   return (
     <Container>
       <Wrapper>
@@ -115,7 +126,7 @@ setNotifications(
                 </NotificationList>
 
               </ContainerNotif>
-            <Link to="/perfil/:id">
+            <Link to={`/perfil/${user.id}`}>
             <button>
               <ProfileCircle src="img/raul.jpg" alt=""  />
             </button>
