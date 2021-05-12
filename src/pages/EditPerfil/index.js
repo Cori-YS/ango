@@ -3,6 +3,7 @@ import * as yup from "yup";
 import { Form } from "@unform/web";
 import Input from "../../components/components/fields/Input";
 import Select from "../../components/components/fields/Select";
+import TextArea from "../../components/components/fields/TextArea";
 
 import DesktopHeader from "../../components/DesktopHeaderImg";
 import MobileHeader from "../../components/MobileHeaderImg";
@@ -15,17 +16,24 @@ export default function Editar() {
   const { id } = useParams();
   const [provincia, setProvincia] = useState([]);
   const [pais, setPais] = useState([]);
+  const [digiTel, setDigiTel] = useState();
+  const [digiData, setDigiData] = useState();
+  const [digiRes, setDigiRes] = useState();
+  const [digiSobre, setDigiSobre] = useState();
+  const [digiHab, setDigiHab] = useState();
+  const [digiPro, setDigiPro] = useState([]);
+  const [digiArea, setDigiArea] = useState([]);
   const [area, setArea] = useState([]);
 
   const schema = yup.object({
-    telefone: yup.number().min(9).positive(),
-    nascimento: yup.date(),
-    pais: yup.string(),
-    provincia: yup.string(),
-    sobremim: yup.string(),
-    responsabilidade: yup.string(),
-    habilidade: yup.string(),
-    area: yup.string(),
+    conctacto: yup.number('Digite um número valido').min(9, 'deve ser valido').positive(),
+    dataNascimento: yup.date('deve ser valido').required('Digite uma data'),
+    pais: yup.string('deve ser valido'),
+    localizacaoId: yup.string('deve ser valido'),
+    sobreMin: yup.string('deve ser valido'),
+    reponsabilidade: yup.string('deve ser valido'),
+    habilidades: yup.string('deve ser valido'),
+    areaId: yup.string('deve ser valido'),
   });
 
   async function handleSubmit(data, { reset }) {
@@ -60,7 +68,18 @@ export default function Editar() {
   const formRef = useRef(null);
 
   useEffect(() => {
-    function receber() {
+    function receber(id) {
+      Api.get(`/candidato/${id}`).then((dados)=>{
+        console.log(dados.data, 'dada')
+        setDigiTel(dados?.data?.conctacto);
+        setDigiData(dados?.data?.dataNascimento);
+        setDigiRes(dados?.data?.reponsabilidade);
+        setDigiSobre(dados?.data?.sobreMin);
+        setDigiHab(dados?.data?.habilidades);
+        setDigiArea([{label:dados.data?.areaId?.nome, value:dados.data?.areaId?._id}]);
+        setDigiPro([{label:dados.data?.localizacaoId?.nome, value:dados.data?.localizacaoId?._id}]);
+      }).catch((e)=>{});
+
       Api.get("localizacao")
         .then((e) => {
           var aux = e.data.provincia.map((e) => ({
@@ -91,7 +110,7 @@ export default function Editar() {
         });
     }
 
-    receber();
+    receber(id);
   }, []);
 
   return (
@@ -108,7 +127,7 @@ export default function Editar() {
             style={{
               border: "1px solid #299be8",
               width: "410px",
-              height: "900px",
+              height: "880px",
               margin: "auto",
             }}
           >
@@ -124,8 +143,25 @@ export default function Editar() {
               <div class="col-md-8" style={{ right: "0" }}>
                 <Input
                   type="tel"
-                  name="telefone"
+                  name="conctacto"
+                  value={digiTel}
+                  onChange={e => setDigiTel(e.target.value)}
                   class="form-control"
+                  placeholder="Telefone"
+                  style={{ width: "350px", margin: "10px auto" }}
+                />
+              </div>
+
+              <div class="col-md-8" style={{ right: "0" }}>
+              <label for="dataNascimento" class="form-label">
+                  Data de Nascimento
+                </label>
+                <Input
+                  type="date"
+                  name="dataNascimento"
+                  class="form-control"
+                  value={digiData}
+                  onChange={e => setDigiData(e.target.value)}
                   placeholder="Telefone"
                   style={{ width: "350px", margin: "10px auto" }}
                 />
@@ -135,10 +171,12 @@ export default function Editar() {
                 <label for="sobremim" class="form-label">
                   Sobre Mim
                 </label>
-                <Input
+                <TextArea
                   type="text"
                   class="form-control"
-                  name="sobremim"
+                  name="sobreMin"
+                  value={digiSobre}
+                  onChange={e => setDigiSobre(e.target.value)}
                   id="sobre-mim"
                   placeholder="..."
                   style={{
@@ -153,11 +191,13 @@ export default function Editar() {
                 <label for="responsabilidade" class="form-label">
                   Responsabilidades
                 </label>
-                <Input
+                <TextArea
                   type="text"
                   class="form-control"
                   name="responsabilidade"
                   id="responsabilidade"
+                  value={digiRes}
+                  onChange={e => setDigiRes(e.target.value)}
                   placeholder="..."
                   style={{
                     width: "350px",
@@ -171,10 +211,12 @@ export default function Editar() {
                 <label for="habilidades" class="form-label">
                   Habilidades
                 </label>
-                <Input
+                <TextArea
                   type="text"
                   class="form-control"
-                  name="habilidade"
+                  name="habilidades"
+                  value={digiHab}
+                  onChange={e => setDigiHab(e.target.value)}
                   id="habilidades"
                   placeholder="..."
                   style={{
@@ -182,18 +224,6 @@ export default function Editar() {
                     height: "100px",
                     margin: "10px auto",
                   }}
-                />
-              </div>
-              <div class="col-md-8">
-                <label for="pais" class="form-label">
-                  Pais
-                </label>
-                <Select
-                  class="form-control"
-                  placeholder="Escolha o pais"
-                  name="pais"
-                  data={pais}
-                  style={{ width: "350px", margin: "10px auto" }}
                 />
               </div>
 
@@ -204,7 +234,9 @@ export default function Editar() {
                 <Select
                   class="form-control"
                   placeholder="Escolha a provincia"
-                  name="provincia"
+                  name="localizacaoId"
+                  value={digiPro}
+                  onChange={e => setDigiPro(e)}
                   data={provincia}
                   style={{ width: "350px", margin: "10px auto" }}
                 />
@@ -216,7 +248,9 @@ export default function Editar() {
                 <Select
                   class="form-control"
                   placeholder="Escolha a area"
-                  name="area"
+                  name="areaId"
+                  value={digiArea}
+                  onChange={e => setDigiArea(e)}
                   data={area}
                   style={{ width: "350px", margin: "10px auto" }}
                 />

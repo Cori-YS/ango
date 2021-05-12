@@ -17,14 +17,13 @@ export default function Perfil() {
   const navigate = useNavigate();
   const { getUser} =useAuth()
   const [user, setUser] = useState({})
+  const [dados, setDados] = useState({})
   useEffect(()=>{
     setUser(getUser());
     function receber(id) {
-      Api.get(`candidato/${id}`).then((data) => {
-        console.log(data.data, "ismel")
-      }).catch((e)=>{
-        console.log(e, 'erro')
-      }) 
+      Api.get(`/candidato/${id}`).then((dados)=>{
+        setDados(dados?.data);
+      }).catch((e)=>{});
     }
     receber(id)
   },[])
@@ -44,20 +43,20 @@ export default function Perfil() {
                 <div class="col-md-9 col-sm-9">
                   <div class="profile-content">
                     <h2>
-                      {user.nome}<span>Desenvolvedor Web</span>
+                    {dados?.utilizadorId?.nome} <span> {dados?.areaId?.nome}</span>
                     </h2>
                     <ul class="information">
                       <li>
-                        <span>Nome:</span>{user.nome}
+                        <span>Nome:</span>{dados?.utilizadorId?.nome}
                       </li>
                       <li>
-                        <span>Email:</span>{user.email}
+                        <span>Email:</span>{dados?.utilizadorId?.email}
                       </li>
                       <li>
-                        <span>Telefone:</span>+91 548 576 8579
+                        <span>Telefone:</span>{dados?.conctacto}
                       </li>
                       <li>
-                        <span>Data de Nascimento:</span>
+                        <span>Data de Nascimento:</span>{dados?.dataNascimento}
                       </li>
                       <li>
                         <Link to={`/editar-conta/${id}`} class="btn btn-common btn-sm" href="#">
@@ -106,13 +105,7 @@ export default function Perfil() {
 
                   <div class="panel-body">
                     <p>
-                      The front end is the part that users see and interact
-                      with, includes the User Interface, the animations, and
-                      usually a bunch of logic to talk to the backend. It is the
-                      visual bit that the user interacts with. This includes the
-                      design, images, colours, buttons, forms, typography,
-                      animations and content. It’s basically everything that you
-                      as a user of the website can see.
+                      {dados?.sobreMin}
                     </p>
                   </div>
                 </div>
@@ -124,10 +117,7 @@ export default function Perfil() {
 
                   <div class="panel-body">
                     <p>
-                      The front end is the part that users see and interact
-                      with, includes the User Interface, the animations, and
-                      usually a bunch of logic to talk to the backend. It is the
-                      visual bit that the user interacts with.
+                      {dados?.reponsabilidade}
                     </p>
                   </div>
                 </div>
@@ -139,9 +129,7 @@ export default function Perfil() {
 
                   <div class="panel-body">
                     <p>
-                      The front end is the part that users see and interact
-                      with, includes the User Interface, the animations, and
-                      usually a bunch of logic to talk to the backend.
+                      {dados?.habilidades}
                     </p>
                   </div>
                 </div>

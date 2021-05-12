@@ -118,7 +118,7 @@ function Login() {
               Entrar
             </button>
             <p>
-              Não tem conta <Link to="/criar-conta">Criar uma conta</Link>
+              Não tem conta <Link to="/criar-conta">Criar uma conta normal,</Link> <br></br><Link to="/cadastro-empresa">Conta de Empresa?</Link>
             </p>
           </Form>
         </div>

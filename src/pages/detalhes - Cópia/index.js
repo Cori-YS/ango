@@ -13,6 +13,7 @@ export default function Detalhe() {
   const { getUser} =useAuth()
   const [user, setUser] = useState({})
   const [dados, setDados]= useState([]);
+  const [dado, setDado] = useState({})
   const [setor, setSetor] =useState([])
   const [empresa, setEmpresa]=useState({})
   const navigate = useNavigate();
@@ -26,6 +27,11 @@ export default function Detalhe() {
         setDados(data.data.Listagem)
         setEmpresa(data.data.Listagem.utilizadorId)
         setSetor(data.data.Listagem.setor)
+        Api.get(`/empresa/${data.data.Listagem.utilizadorId._id}`).then((dados)=>{
+          setDado(dados?.data)
+          console.log(dados?.data, "dados")
+        }).catch((e)=>{})
+        
     }).catch((e)=>{
       console.log(e, 'erro')
     }) 
@@ -165,14 +171,12 @@ if(response.data.sucesso){
                       <a href="#">{empresa.nome}</a>
                     </h4>
                     <p>
-                      LemonKids LLC. In marketing communications, we dream it
-                      and create it. All of the company’s promotional and
-                      communication needs are completed in-house.
+                      {dado?.sobre}
                     </p>
                     <strong>Area</strong>
-                    <p>Insurance</p>
+                    <p>{dado?.areaId?.nome}</p>
                     <strong>Localização</strong>
-                    <p>New York, NY </p>
+                    <p>{dado?.localizacaoId?.nome} </p>
                   </div>
                 </div>
               </div>
