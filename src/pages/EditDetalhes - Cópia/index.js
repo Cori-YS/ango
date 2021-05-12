@@ -9,20 +9,29 @@ import { useAuth} from '../../auth'
 import Api from '../../services/api';
 import DesktopHeader from "../../components/DesktopHeaderImgE";
 import MobileHeader from "../../components/MobileHeaderImgE";
+import { useParams} from 'react-router-dom'
 
 export default function EditarDetalhes() {
-
+  const { id } = useParams();
   const { getUser} = useAuth()
   const [setor, setSetor]=useState([])
   const [user, setUser] = useState({});
+  const [vagas, setVagas]= useState({});
   const tipo = [{label: 'Estágio', value: '1'}, {label: 'Integral', value: '2'}];
-
+  const [digiNome, setDigitNome]= useState()
+  const [digitipoVaga, setDigittipoVaga]= useState([])
+  const [digiQualific, setDigitQualific]= useState()
+  const [digirequiremento, setDigitrequiremento]= useState()
+  const [digiBeneficio, setDigitBeneficio]= useState()
+  const [digiSetor, setDigitSetor]= useState([])
+  const [digiresponsabilidade, setDigitresponsabilidade]= useState()
+  const [digioverview, setDigitoverview]= useState()
   const schema = yup.object({
     nome: yup.string().required('O nome é obrigatorio'),
     tipoVaga: yup.string().required('Selecione o tipo de vaga'),
     qualificacoes: yup.string().required('qualificações são obrigatorio'),
     responsabilidade: yup.string().required('responsabilidade é obrigatorio'),
-    requerimentos: yup.string().required('requerimentos são obrigatorio'),
+    requerimento: yup.string().required('requerimentos são obrigatorio'),
     beneficios: yup.string().required('A beneficios é obrigatorio'),
     setor: yup.string().required('Selecione o setor da vaga'),
   })
@@ -47,16 +56,38 @@ export default function EditarDetalhes() {
      }
    
      try {
-   
+       data.id=id;
+      const response = await Api.post('/vaga-actualizar', {data})
+
+      if(response.data.sucesso) return toast.success('vaga actualizada com sucesso')
+    
      }
      catch (err) {
    
-   
+   console.log(err)
      }
    }
    const formRef = useRef(null);
 
-   useEffect(()=>{   function receber(){
+   useEffect(()=>{   
+     function receber(){
+
+    Api.get(`/vagas/${id}`).then((data)=>{
+      console.log(data.data.Listagem, "Raul Mau")
+       setVagas(data.data.Listagem)
+       setDigitNome(data.data.Listagem?.nome)
+       setDigitQualific(data.data.Listagem?.qualificacoes)
+       setDigitrequiremento(data.data.Listagem?.requerimentos)
+       setDigitresponsabilidade(data.data.Listagem?.responsabilidade)
+       setDigitBeneficio(data.data.Listagem?.beneficios)
+       setDigitSetor([{label:data.data.Listagem?.setor?.nome, value:data.data.Listagem?.setor?._id}])
+       setDigittipoVaga([{label:(data.data.Listagem?.tipoVaga=="1"?"Estagio":"Integral"), value:data.data.Listagem?.tipoVaga}])
+       setDigitoverview(vagas?.overview)
+        }).catch((e) => {
+          console.log(e)
+        }) 
+
+
     Api.get('/trabalho').then((data)=>{
  console.log(data, "ismelio")
 
@@ -83,6 +114,11 @@ useEffect(() => {
  setUser(getUser());
  }, [getUser]);
 
+
+
+
+
+ 
   return (
     <>
     
@@ -98,25 +134,14 @@ useEffect(() => {
                 <Input
                   type="name"
                   name="nome"
+                  value={digiNome}
+                  onChange={e => setDigitNome(e.target.value)}
                   class="form-control"
                   placeholder="Nome da vaga"
                   style={{width: '350px', margin: '10px auto'}}
                 />
               </div>
 
-              <div class="col-md-8">
-                <label for="Overview" class="form-label"  style={{margin: '20px auto'}}>
-                  Sobre Visão
-                </label>
-                <Input
-                  type="text"
-                  class="form-control"
-                  name="overview"
-                  id="Overview"
-                  placeholder="..."
-                  style={{width: '350px', height: '100px', margin: '10px auto'}}
-                />
-              </div>
 
               <div class="col-md-8">
                 <label for="qualificacoes" class="form-label">
@@ -127,6 +152,8 @@ useEffect(() => {
                   class="form-control"
                   name="qualificacoes"
                   id="qualificacoes"
+                  value={digiQualific}
+                  onChange={e => setDigitQualific(e.target.value)}
                   placeholder="..."
                   style={{width: '350px', height: '100px', margin: '10px auto'}}
                 />
@@ -141,6 +168,8 @@ useEffect(() => {
                   class="form-control"
                   name="responsabilidade"
                   id="responsabilidade"
+                  value={digiresponsabilidade}
+                  onChange={e => setDigitresponsabilidade(e.target.value)}
                   placeholder="..."
                   style={{width: '350px', height: '100px', margin: '10px auto'}}
                 />
@@ -152,8 +181,10 @@ useEffect(() => {
                 <Input
                   type="text"
                   class="form-control"
-                  name="requerimentos"
+                  name="requerimento"
                   id="requerimentos"
+                  value={digirequiremento}
+                  onChange={e => setDigitrequiremento(e.target.value)}
                   placeholder="..."
                   style={{width: '350px', height: '100px', margin: '10px auto'}}
                 />
@@ -167,6 +198,8 @@ useEffect(() => {
                   class="form-control"
                   name="beneficios"
                   id="beneficios"
+                  value={digiBeneficio}
+                  onChange={e => setDigitBeneficio(e.target.value)}
                   placeholder="..."
                   style={{width: '350px', height: '100px', margin: '10px auto'}}
                 />
@@ -178,6 +211,8 @@ useEffect(() => {
                   class="form-control"
                   placeholder="Escolha o Tipo"
                   name="tipoVaga"
+                 value={digitipoVaga}
+                 onChange={e => setDigittipoVaga(e)}
                   data={tipo}
                   />
               </div>
@@ -186,6 +221,8 @@ useEffect(() => {
                   class="form-control"
                   placeholder="Escolha o Setor"
                   name="setor"
+                 value={digiSetor}
+                 onChange={e => setDigitSetor(e)}
                   data={setor}
                   />
               </div>
@@ -193,7 +230,7 @@ useEffect(() => {
               <div class="col-md-8">
                 <div class="col-md-8">
                   <button type="submit" class="btn btn-primary" style={{margin: "20px"}}>
-                    Postar
+                    Actualizar
                   </button>
                 </div>
               </div>

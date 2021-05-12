@@ -29,7 +29,7 @@ export default function ContainerRoutes() {
           <Routes>{PathCandidato.map((route) => makeRoute(route))}</Routes>
         );
       default:
-        return <Routes>{PathDefault.map((route) => makeRoute(route))}</Routes>;
+        return <Routes>{Paths.map((route) => makeRoute(route))}</Routes>;
     }
   }
 

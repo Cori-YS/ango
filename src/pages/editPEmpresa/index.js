@@ -15,18 +15,18 @@ export default function EditarEmpresa() {
   const [pais, setPais] = useState([]);
   const [area, setArea] = useState([]);
   const schema = yup.object({
-    website: yup.string().url(),
-    telefone: yup.number().min(9),
-    pais: yup.string(),
-    provincia: yup.string(),
-    sobremim: yup.string(),
+    site: yup.string(),
+    conctacto: yup.number().min(9),
+    localizacaoId: yup.string(),
+    sobre: yup.string(),
     responsabilidade: yup.string(),
-    qualificacoesminimas: yup.string(),
-    qualificacoesperferidas: yup.string(),
-    area: yup.string(),
+    qualificaoesMin: yup.string(),
+    qualificacoesPref: yup.string(),
+    areaId: yup.string(),
   });
 
   async function handleSubmit(data, { reset }) {
+    alert()
     try {
       await schema.validate(data, {
         abortEarly: false,
@@ -49,6 +49,7 @@ export default function EditarEmpresa() {
       data.idUser = id;
       data.owner = "empresa";
       const aux = await Api.post("/editarPerfil", { data });
+      console.log(aux, "dadossssssssssssssssssss")
       if (aux.data.sucesso) {
         toast.success("Edição feita com sucesso");
       }
@@ -120,7 +121,7 @@ export default function EditarEmpresa() {
               <div class="col-md-8" style={{ right: "0" }}>
                 <Input
                   type="tel"
-                  name="telefone"
+                  name="conctacto"
                   class="form-control"
                   placeholder="Telefone"
                   style={{ width: "350px", margin: "10px auto" }}
@@ -129,7 +130,7 @@ export default function EditarEmpresa() {
               <div class="col-md-8" style={{ right: "0" }}>
                 <Input
                   type="text"
-                  name="website"
+                  name="site"
                   class="form-control"
                   placeholder="Website"
                   style={{ width: "350px", margin: "10px auto" }}
@@ -144,7 +145,7 @@ export default function EditarEmpresa() {
                 <TextArea
                   type="text"
                   class="form-control"
-                  name="sobremim"
+                  name="sobre"
                   placeholder="..."
                   style={{
                     width: "350px",
@@ -179,7 +180,7 @@ export default function EditarEmpresa() {
                 <TextArea
                   type="text"
                   class="form-control"
-                  name="qualificacoesminimas"
+                  name="qualificaoesMin"
                   id="qualificacoes-minimas"
                   placeholder="..."
                   style={{
@@ -196,7 +197,7 @@ export default function EditarEmpresa() {
                 <TextArea
                   type="text"
                   class="form-control"
-                  name="qualificacoesperferidas"
+                  name="qualificacoesPref"
                   id="qualificacoes-perferidas"
                   placeholder="..."
                   style={{
@@ -226,7 +227,7 @@ export default function EditarEmpresa() {
                 <Select
                   class="form-control"
                   placeholder="Escolha a provincia"
-                  name="provincia"
+                  name="localizacaoId"
                   data={provincia}
                   style={{ width: "350px", margin: "10px auto" }}
                 />
@@ -238,7 +239,7 @@ export default function EditarEmpresa() {
                 <Select
                   class="form-control"
                   placeholder="Escolha a area"
-                  name="area"
+                  name="areaId"
                   data={area}
                   style={{ width: "350px", margin: "10px auto" }}
                 />

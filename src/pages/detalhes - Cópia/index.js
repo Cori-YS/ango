@@ -6,7 +6,8 @@ import { Modal} from 'antd';
 import { useAuth} from '../../auth'
 import DesktopHeader from "../../components/DesktopHeaderImgE";
 import MobileHeader from "../../components/MobileHeaderImgE";
-
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 export default function Detalhe() {
 
   const { getUser} =useAuth()
@@ -14,7 +15,7 @@ export default function Detalhe() {
   const [dados, setDados]= useState([]);
   const [setor, setSetor] =useState([])
   const [empresa, setEmpresa]=useState({})
-
+  const navigate = useNavigate();
   const {id} = useParams()
 
   useEffect(()=>{
@@ -31,7 +32,22 @@ export default function Detalhe() {
   } 
     receber(id)
   },[])
+async function eliminar(id){
+var data ={};
 
+try{
+  data.id=id
+
+const response =await Api.post('/vaga-del', {data})
+if(response.data.sucesso){
+  toast.success('eliminado com sucesso')
+  navigate(`/principal-empresa`);
+}
+}catch(e){
+
+}
+
+}
   return (
     <>
     <DesktopHeader className="mt-8" />
@@ -131,7 +147,7 @@ export default function Detalhe() {
                           Editar Vaga
                         </Link>
                             
-                    <Link to="/editar-vaga/:id" class="btn btn-common btn-sm" style={{background: 'red', marginLeft: '10px'}}>
+                    <Link onClick={e => {e.preventDefault(); eliminar(id) }} to="" class="btn btn-common btn-sm" style={{background: 'red', marginLeft: '10px'}}>
                       Apagar Vaga
                     </Link>
                       </div>

@@ -1,15 +1,30 @@
 import React, {useState, useEffect} from "react";
 import { Link } from 'react-router-dom'
 import {useAuth} from '../../auth';
-
+import { useNavigate } from "react-router-dom";
 import DesktopHeader from "../../components/DesktopHeaderImgE";
 import MobileHeader from "../../components/MobileHeaderImgE";
+import { useParams} from 'react-router-dom'
+import Api from '../../services/api'
 export default function Empresa() {
+  const {id} = useParams();
 
+  const navigate = useNavigate();
   const { getUser} =useAuth()
   const [user, setUser] = useState({})
+  const [dado, setDado] = useState({})
   useEffect(()=>{
     setUser(getUser());
+
+   async function receber(id){
+    await Api.get(`/empresa/${id}`).then((dados)=>{
+      setDado(dados?.data)
+      console.log(dados?.data, "dados")
+    }).catch((e)=>{})
+    }
+
+receber(id)
+    
   },[])
 
 
@@ -28,17 +43,17 @@ export default function Empresa() {
                 <div class="col-md-9 col-sm-9">
                   <div class="profile-content">
                     <h2>
-                      Microsoft<span>Internet e Computacao de Software</span>
+                     {dado?.utilizadorId?.nome}<span>{dado?.areaId?.nome}</span>
                     </h2>
                     <ul class="information">
                       <li>
-                        <span>Endereço:</span>Menlo Park, CA
+                        <span>Endereço:</span>{dado?.localizacaoId?.nome}
                       </li>
                       <li>
-                        <span>Website:</span>Google.com
+                        <span>Website:</span> {dado?.site}
                       </li>
                       <li>
-                        <span>Email:</span>info@google.com
+                        <span>Email:</span>{dado?.utilizadorId.email}
                       </li>
                       <li>
                         <Link to={`/editar-conta-empresa/${user.id}`} class="btn btn-common btn-sm" href="#">
@@ -46,7 +61,7 @@ export default function Empresa() {
                         </Link>
                       </li>
                       <li>
-                        <a class="btn btn-common btn-sm" href="#">
+                        <a class="btn btn-common btn-sm"  href="#"  onClick={e => {e.preventDefault(); localStorage.clear();navigate('/home') }}>
                           Terminar Sessão
                         </a>
                       </li>
@@ -82,15 +97,12 @@ export default function Empresa() {
                 </ul>
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                    <i class="fa fa-user fa-fw"></i> Sobre Microsoft
+                    <i class="fa fa-user fa-fw"></i> Sobre{ ' '}{dado?.utilizadorId?.nome}
                   </div>
 
                   <div class="panel-body">
                     <p>
-                      The front end is the part that users see and interact
-                      with, includes the User Interface, the animations, and
-                      usually a bunch of logic to talk to the backend. It is the
-                      visual bit that the user interacts with.
+                    {dado?.sobre}
                     </p>
                   </div>
                 </div>
@@ -102,9 +114,7 @@ export default function Empresa() {
 
                   <div class="panel-body">
                     <p>
-                      Rapid growth since incorporation has triggered a chain of
-                      products, acquisitions and partnerships beyond Google's
-                      core search engine (Google Search).
+                     {dado?.responsabilidade}
                     </p>
                   </div>
                 </div>
@@ -116,8 +126,7 @@ export default function Empresa() {
 
                   <div class="panel-body">
                     <p>
-                      Rapid growth since incorporation has triggered a chain of
-                      products.
+                      {dado?.qualificaoesMin}
                     </p>
                   </div>
                 </div>
@@ -130,9 +139,7 @@ export default function Empresa() {
 
                   <div class="panel-body">
                   <p>
-                      Rapid growth since incorporation has triggered a chain of
-                      products, acquisitions and partnerships beyond Google's
-                      core search engine (Google Search).
+                     {dado?.qualificacoesPref}
                     </p>
                   </div>
                 </div>

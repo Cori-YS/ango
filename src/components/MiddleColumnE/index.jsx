@@ -13,23 +13,29 @@ const MiddleColumnE = () => {
   const [setor, setSetor]=useState([])
   const [user, setUser] = useState({});
   const [dados, setDados]=useState([])
-  const [tag, setTag]= useState(<>,</>)
 
-  useEffect(()=>{
-    setUser(getUser())
-    console.log(user.id, 'isme')
-    function receber (){
-      Api.get(`vaga/${user.id}`).then((data)=>{
-       console.log('rau', data.data.Listagem)
+
+  async function receber (id){
+    setUser( await getUser())
+    console.log(user, 'isme')
+    await Api.get(`vaga/${id}`).then((data)=>{
+//console.log('rau', data.data.Listagem)
        setDados(data.data.Listagem)
       }).catch((e)=>{
         console.error(e)
-        console.log(user.id, 'isme')
+        console.log('rato')
       })
     }
   
-    receber()
-  },[])
+  useEffect(()=>{
+    
+    
+   
+
+  
+   receber(user.id)
+   
+  },[user])
 
 
   return (
@@ -39,7 +45,7 @@ const MiddleColumnE = () => {
       {dados.map((e)=>(
         <FeedPost Id={e._id} data={e.createdAt} nomeVaga={e.nome} nomeEmpresa={e.utilizadorId.nome} overView={e.overview} setor ={e.setor.nome} idEmpresa={e.utilizadorId._id}/>
       ))}
-      {tag}
+   
       
     </Container>
    

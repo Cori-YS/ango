@@ -60,7 +60,7 @@ export const AuthProvider = ({ children }) => {
       if (response.data.user.sucesso) {
         // Get token
         const { id, token, ...use } = response.data.user;
-use.id=id;
+         use.id=id;
         if (token) {
           // Save cookie 'remember me'
 

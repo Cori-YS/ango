@@ -12,7 +12,7 @@ const [user, setUser]=useState({})
 
   useEffect(()=>{
   setUser(getUser())
-  },[])
+  },[getUser])
   return (
     <Panel>
       <Container>

@@ -7,14 +7,14 @@ import { useParams} from 'react-router-dom'
 import Api from '../../services/api'
 import DesktopHeader from "../../components/DesktopHeaderImg";
 import MobileHeader from "../../components/MobileHeaderImg";
-
+import { useNavigate } from "react-router-dom";
 export default function Perfil() {
   const {id} = useParams()
   const formRef = useRef();
   const handleFormSubmit = (data) => {
     console.log(data);
   };
-
+  const navigate = useNavigate();
   const { getUser} =useAuth()
   const [user, setUser] = useState({})
   useEffect(()=>{
@@ -65,7 +65,7 @@ export default function Perfil() {
                         </Link>
                       </li>
                       <li>
-                        <a class="btn btn-common btn-sm" href="#">
+                        <a class="btn btn-common btn-sm" href="#" onClick={e => {e.preventDefault(); localStorage.clear();navigate('/home') }}>
                           Terminar Sessão
                         </a>
                       </li>
