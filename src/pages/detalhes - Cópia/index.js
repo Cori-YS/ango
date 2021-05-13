@@ -93,7 +93,7 @@ if(response.data.sucesso){
                   <div class="clearfix">
                     <div class="panel panel-default">
                       <div class="panel-heading">
-                        <i class="fa fa-user fa-fw"></i> Overview
+                        <i class="fa fa-user fa-fw"></i> Visão sobre
                       </div>
 
                       <div class="panel-body">
@@ -124,18 +124,6 @@ if(response.data.sucesso){
                       <div class="panel-body">
                         <p>
                           {dados.responsabilidade}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <i class="fa fa-leaf fa-fw"></i> Requerimentos
-                      </div>
-
-                      <div class="panel-body">
-                        <p>
-                          {dados?.requerimento}
                         </p>
                       </div>
                     </div>

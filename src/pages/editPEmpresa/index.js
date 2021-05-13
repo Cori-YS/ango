@@ -7,10 +7,11 @@ import TextArea from "../../components/components/fields/TextArea";
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import Api from "../../services/api";
-
+import { useNavigate } from "react-router-dom";
 import DesktopHeader from "../../components/DesktopHeaderImgE";
 import MobileHeader from "../../components/MobileHeaderImgE";
 export default function EditarEmpresa() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const [dado, setDado] = useState({})
   const [provincia, setProvincia] = useState([]);
@@ -37,7 +38,6 @@ export default function EditarEmpresa() {
   });
 
   async function handleSubmit(data, { reset }) {
-    alert()
     try {
       await schema.validate(data, {
         abortEarly: false,
@@ -63,6 +63,7 @@ export default function EditarEmpresa() {
       console.log(aux, "dadossssssssssssssssssss")
       if (aux.data.sucesso) {
         toast.success("Edição feita com sucesso");
+        navigate(`/perfil-empresa/${id}`)
       }
     } catch (err) {}
   }

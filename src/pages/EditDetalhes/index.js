@@ -7,6 +7,7 @@ import TextArea from '../../components/components/fields/TextArea';
 import {toast} from "react-toastify";
 import Api from '../../services/api';
 import { useAuth} from '../../auth'
+import { useNavigate } from "react-router-dom";
 import DesktopHeader from "../../components/DesktopHeaderImgE";
 import MobileHeader from "../../components/MobileHeaderImgE";
 
@@ -14,6 +15,7 @@ import { Link } from 'react-router-dom'
 
 
 export default function EditarDetalhes() {
+  const navigate = useNavigate();
   const { getUser} = useAuth()
   const [setor, setSetor]=useState([])
   const [user, setUser] = useState({});
@@ -24,7 +26,6 @@ export default function EditarDetalhes() {
     qualificacoes: yup.string().required('qualificações são obrigatorio'),
     overview: yup.string().required('sobre visão é obrigatorio'),
     responsabilidade: yup.string().required('responsabilidade é obrigatorio'),
-    requerimentos: yup.string().required('requerimentos são obrigatorio'),
     beneficios: yup.string().required('A beneficios é obrigatorio'),  
     tipoVaga: yup.string().required('Selecione o tipo de vaga'),
     setor: yup.string().required('Selecione o setor da vaga'),
@@ -53,7 +54,11 @@ export default function EditarDetalhes() {
    data.utilizadorId=user.id;
       const response = await Api.post('/criar-vaga', {data})
 
-      if(response.data.sucesso) return toast.success('vaga cadastrada com sucesso')
+      if(response.data.sucesso) {
+        toast.success('vaga cadastrada com sucesso')
+        return navigate(`/principal-empresa`);
+      }
+      
     
      }
      catch (err) {
@@ -148,19 +153,6 @@ useEffect(() => {
                   class="form-control"
                   name="responsabilidade"
                   id="responsabilidade"
-                  placeholder="..."
-                  style={{width: '350px', height: '100px', margin: '10px auto'}}
-                />
-              </div>
-              <div class="col-md-8">
-                <label for="requerimentos" class="form-label">
-                  Requerimentos
-                </label>
-                <TextArea
-                  type="text"
-                  class="form-control"
-                  name="requerimentos"
-                  id="requerimentos"
                   placeholder="..."
                   style={{width: '350px', height: '100px', margin: '10px auto'}}
                 />

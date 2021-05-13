@@ -5,9 +5,11 @@ import  Input  from '../../components/components/fields/Input';
 import Select from '../../components/components/fields/Select';
 import {toast} from "react-toastify";
 import Api from '../../services/api';
+import { useNavigate } from "react-router-dom";
 
 
 export default function Cadastroe() {
+  const navigate = useNavigate();
   const [provincia, setProvincia] = useState([]);
   const [pais, setPais]= useState([]);
   var ism = [{
@@ -54,8 +56,12 @@ async function handleSubmit (data, {reset}){
    if(responsivo.data.exist){
      return toast.error('Este email nao esta disponivel')
    }
-   if(responsivo.data.sucesso)
-   toast.success('A sua conta foi cadastrada com sucesso, pode logar');
+   if(responsivo.data.sucesso){
+
+    toast.success('A sua conta foi cadastrada com sucesso, pode logar');
+    
+    return navigate(`/entrar`);
+  }
   }
   catch (err) {
 

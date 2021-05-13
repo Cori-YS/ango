@@ -14,19 +14,16 @@ export default function RouteWrapper({
   const signed = isAuth();
   //
   const { getUser } = useAuth();
-
+  const response = getUser()
   if (!signed && isPrivate) {
-    return <Navigate to="/home" />;
+    return <Navigate to="/" />;
   }
 
   if (signed && !isPrivate) {
-    //const user=getUser();
-    //    if(owner!==user.owner){
-    //  return <Navigate to="/"/>
-    //    }else{
-    //      return <Navigate to="/dashboard" />;
-    //    }
-    return <Navigate to="/principal" />;
+    if(response.categoria=="candidato")
+         return <Navigate to="/principal" />;
+    if(response.categoria=="empresa")
+          return <Navigate to="/principal-empresa" />;
   }
 
   return <Route {...rest} element={<Element />} />;

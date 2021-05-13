@@ -32,7 +32,6 @@ export default function EditarDetalhes() {
     tipoVaga: yup.string().required('Selecione o tipo de vaga'),
     qualificacoes: yup.string().required('qualificações são obrigatorio'),
     responsabilidade: yup.string().required('responsabilidade é obrigatorio'),
-    requerimento: yup.string().required('requerimentos são obrigatorio'),
     beneficios: yup.string().required('A beneficios é obrigatorio'),
     setor: yup.string().required('Selecione o setor da vaga'),
   })
@@ -171,21 +170,6 @@ useEffect(() => {
                   id="responsabilidade"
                   value={digiresponsabilidade}
                   onChange={e => setDigitresponsabilidade(e.target.value)}
-                  placeholder="..."
-                  style={{width: '350px', height: '100px', margin: '10px auto'}}
-                />
-              </div>
-              <div class="col-md-8">
-                <label for="requerimentos" class="form-label">
-                  Requerimentos
-                </label>
-                <TextArea
-                  type="text"
-                  class="form-control"
-                  name="requerimento"
-                  id="requerimentos"
-                  value={digirequiremento}
-                  onChange={e => setDigitrequiremento(e.target.value)}
                   placeholder="..."
                   style={{width: '350px', height: '100px', margin: '10px auto'}}
                 />

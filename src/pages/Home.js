@@ -35,7 +35,6 @@ export default function Home() {
           setDados(data.data.Listagem);
         })
         .catch((e) => {
-          alert();
           console.error(e);
         });
     }
@@ -204,7 +203,7 @@ export default function Home() {
           <h2 class="section-title">Vagas em alta</h2>
           <div class="row">
             <div class="col-md-12">
-              {dados.slice(0, 5).map((e) => (
+              {dados.slice(0, 3).map((e) => (
                 <div class="job-list">
                   <div class="thumb">
                     <Link to="/entrar">
@@ -253,7 +252,7 @@ export default function Home() {
         <div class="container">
           <h2 class="section-title">Vagas Recentes</h2>
           <div class="row">
-            {dados.slice(0, 7).map((e) => (
+            {dados.slice(0, 6).map((e) => (
               <div class="col-md-4 col-sm-6 col-xs-12">
                 <div class="featured-item">
                   <div class="featured-wrap">

@@ -5,7 +5,9 @@ import  Input  from '../../components/components/fields/Input';
 import Select from '../../components/components/fields/Select';
 import {toast} from "react-toastify";
 import Api from '../../services/api';
+import { useNavigate } from "react-router-dom";
 export default function Cadastro() {
+  const navigate = useNavigate();
 const [sexo, setSexo]= useState([{label:"Masculino", value:"Masculino"},
 {label:"Feminino", value:"Feminino"}]);
  const [provincia, setProvincia] = useState([]);
@@ -53,8 +55,11 @@ const [sexo, setSexo]= useState([{label:"Masculino", value:"Masculino"},
           if(responsivo.data.exist){
             return toast.error('Este email nao esta disponivel')
           }
-          if(responsivo.data.sucesso)
-          toast.success('A sua conta foi cadastrada com sucesso, pode logar');
+          if(responsivo.data.sucesso){
+
+            toast.success('A sua conta foi cadastrada com sucesso, pode logar');
+            return navigate(`/entrar`);
+        }
      
        }
        catch (err) {

@@ -26,7 +26,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   async function signIn(data, formRef) {
-    alert()
+ 
     try {
       const dataSchema = Yup.object({
         email: Yup.string().email('Deve ser um email valido').required('O email é obrigatorio'),

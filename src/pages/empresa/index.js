@@ -64,7 +64,7 @@ receber(id)
                         </Link>
                       </li>
                       <li>
-                        <a class="btn btn-common btn-sm"  href="#"  onClick={e => {e.preventDefault(); localStorage.clear();navigate('/home') }}>
+                        <a class="btn btn-common btn-sm"  href="#"  onClick={e => {e.preventDefault(); localStorage.clear();navigate('/') }}>
                           Terminar Sessão
                         </a>
                       </li>

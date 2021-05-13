@@ -27,6 +27,21 @@ export const Container = styled.div`
   }
   .attachment {
     display: none;
+    button {
+      display: flex;
+      padding: 16px;
+      height: 100%;
+      align-items: center;
+      background: none;
+      border: none;
+      color: var(--color-gray);
+      font-weight: 600;
+
+      cursor: pointer;
+      &:hover,
+      &:focus {
+        background: rgba(0, 0, 0, 0.05);
+      }
 
     @media (min-width: 1180px) {
       display: flex;

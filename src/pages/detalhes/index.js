@@ -130,7 +130,7 @@ const [vagaId, setVagaId]= useState(false)
                   <div class="clearfix">
                     <div class="panel panel-default">
                       <div class="panel-heading">
-                        <i class="fa fa-user fa-fw"></i> Overview
+                        <i class="fa fa-user fa-fw"></i> Visão sobre
                       </div>
 
                       <div class="panel-body">
@@ -161,19 +161,6 @@ const [vagaId, setVagaId]= useState(false)
                       <div class="panel-body">
                         <p>
                         {dados.responsabilidade}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <i class="fa fa-leaf fa-fw"></i> Requerimentos
-                      </div>
-
-                      <div class="panel-body">
-
-                        <p>
-                        {dados?.requerimento}
                         </p>
                       </div>
                     </div>
