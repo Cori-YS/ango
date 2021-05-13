@@ -112,7 +112,6 @@ setNotifications(
 
                   <Notification>
                     <p>sem notificações</p>
-                    <button type="button">Marcar como lida</button>
                   </Notification>
                   </Scroll>
                 </NotificationList>

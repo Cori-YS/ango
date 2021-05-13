@@ -87,7 +87,7 @@ const { getUser} =useAuth();
             </Link>
             <ContainerNotif>
                {/**hasUnread */}
-            <Badge hasUnread onClick={handleVisible}>
+            <Badge onClick={handleVisible}>
               <NotificationIcon />
 
               </Badge>
@@ -103,20 +103,8 @@ const { getUser} =useAuth();
                    </Notification>
                   )) **/}
 
-                  <Notification unread>
-                    <p>voce possui uma notificaoa</p>
-                    <time>há 2 dias</time>
-                    <button type="button">Marcar como lida</button>
-                  </Notification>
                   <Notification>
-                    <p>voce possui uma notificaoa</p>
-                    <time>há 2 dias</time>
-                    <button type="button">Marcar como lida</button>
-                  </Notification>
-                  <Notification>
-                    <p>voce possui uma notificaoa</p>
-                    <time>há 2 dias</time>
-                    <button type="button">Marcar como lida</button>
+                    <p>sem notificações</p>
                   </Notification>
                   </Scroll>
                 </NotificationList>

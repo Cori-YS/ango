@@ -107,14 +107,14 @@ const FeedPost= ({Id, data, nomeVaga, nomeEmpresa,overView, setor, idEmpresa}) =
 
         <Row className="actions" style={{display:"flex", justifyContent:"flex-end"}} >
           
-          
-         
-          <button style={{ borderRadius:"4px"}} onClick={countdown} >
+          <Link to={`/detalhes/${Id}`}>
+          <button style={{ borderRadius:"4px"}}>
             <SendIcon />
-            {!Active && ( <span>Candidatar-me</span>)}
-            {Active && ( <span>Remover Candidatura</span>)}
-           
+            <span>Ver vaga</span>
           </button>
+          </Link>
+         
+          
         </Row>
        
       </Container>
