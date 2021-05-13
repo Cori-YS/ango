@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import { Form} from '@unform/web';
 import  Input  from '../../components/components/fields/Input';
 import Select from '../../components/components/fields/Select';
+import TextArea from '../../components/components/fields/TextArea';
 import {toast} from "react-toastify";
 import Api from '../../services/api';
 import { useAuth} from '../../auth'
@@ -97,7 +98,7 @@ useEffect(() => {
     
       <section class="login-wrapper">
         <div class="container1">
-          <Form class="container" schema={schema} onSubmit={handleSubmit} ref={formRef} style={{border: '1px solid #299be8', width: '410px', height: '1400px'}}>
+          <Form class="container" schema={schema} onSubmit={handleSubmit} ref={formRef} style={{border: '1px solid #299be8', width: '410px', height: '1200px'}}>
             <img class="img-responsive" alt="logo" src="img/logo-azul.png" />
             <div class="row">
               <div class="col-md-8" style={{ right: "0" }}>
@@ -112,9 +113,9 @@ useEffect(() => {
 
               <div class="col-md-8">
                 <label for="Overview" class="form-label"  style={{margin: '20px auto'}}>
-                  Sobre Visão
+                  Visão Sobre 
                 </label>
-                <Input
+                <TextArea
                   type="text"
                   class="form-control"
                   name="overview"
@@ -128,7 +129,7 @@ useEffect(() => {
                 <label for="qualificacoes" class="form-label">
                   Qualificações
                 </label>
-                <Input
+                <TextArea
                   type="text"
                   class="form-control"
                   name="qualificacoes"
@@ -142,7 +143,7 @@ useEffect(() => {
                 <label for="responsabilidade" class="form-label">
                   Responsabilidades
                 </label>
-                <Input
+                <TextArea
                   type="text"
                   class="form-control"
                   name="responsabilidade"
@@ -155,7 +156,7 @@ useEffect(() => {
                 <label for="requerimentos" class="form-label">
                   Requerimentos
                 </label>
-                <Input
+                <TextArea
                   type="text"
                   class="form-control"
                   name="requerimentos"
@@ -168,7 +169,7 @@ useEffect(() => {
                 <label for="beneficios" class="form-label">
                   Beneficios
                 </label>
-                <Input
+                <TextArea
                   type="text"
                   class="form-control"
                   name="beneficios"

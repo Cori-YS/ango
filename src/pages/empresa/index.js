@@ -53,7 +53,10 @@ receber(id)
                         <span>Website:</span> {dado?.site}
                       </li>
                       <li>
-                        <span>Email:</span>{dado?.utilizadorId.email}
+                        <span>Contacto:</span> {dado?.conctacto}
+                      </li>
+                      <li>
+                        <span>Email:</span>{dado?.utilizadorId?.email}
                       </li>
                       <li>
                         <Link to={`/editar-conta-empresa/${user.id}`} class="btn btn-common btn-sm" href="#">

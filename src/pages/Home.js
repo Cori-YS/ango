@@ -357,58 +357,16 @@ export default function Home() {
             <div id="clients-scroller" style={{ display: "flex" }}>
               <div class="items">
                 <img
-                  style={{ height: "130px" }}
-                  src="assets/img/clients/img1.png"
+                  style={{ height: "90px" }}
+                  src="assets/img/clients/imil.png"
                   alt=""
                 />
                 ,
               </div>
               <div class="items">
                 <img
-                  style={{ height: "130px" }}
-                  src="assets/img/clients/img2.png"
-                  alt=""
-                />
-              </div>
-              <div class="items">
-                <img
-                  style={{ height: "130px" }}
-                  src="assets/img/clients/img3.png"
-                  alt=""
-                />
-              </div>
-              <div class="items">
-                <img
-                  style={{ height: "130px" }}
-                  src="assets/img/clients/img4.png"
-                  alt=""
-                />
-              </div>
-              <div class="items">
-                <img
-                  style={{ height: "130px" }}
-                  src="assets/img/clients/img5.png"
-                  alt=""
-                />
-              </div>
-              <div class="items">
-                <img
-                  style={{ height: "130px" }}
-                  src="assets/img/clients/img6.png"
-                  alt=""
-                />
-              </div>
-              <div class="items">
-                <img
-                  style={{ height: "130px" }}
-                  src="assets/img/clients/img6.png"
-                  alt=""
-                />
-              </div>
-              <div class="items">
-                <img
-                  style={{ height: "130px" }}
-                  src="assets/img/clients/img6.png"
+                  style={{ height: "90px" }}
+                  src="assets/img/clients/logo-azul.png"
                   alt=""
                 />
               </div>

@@ -1,14 +1,33 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Avatar from "./avatar";
 import { Form } from "@unform/web";
+import { Link } from 'react-router-dom'
+import {useAuth} from '../../auth';
+import { useParams} from 'react-router-dom'
+import Api from '../../services/api'
 import DesktopHeader from "../../components/DesktopHeaderImgE";
 import MobileHeader from "../../components/MobileHeaderImgE";
-import { Link } from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 export default function Perfil() {
+  const {id} = useParams()
   const formRef = useRef();
   const handleFormSubmit = (data) => {
     console.log(data);
   };
+  const navigate = useNavigate();
+  const { getUser} =useAuth()
+  const [user, setUser] = useState({})
+  const [dados, setDados] = useState({})
+  useEffect(()=>{
+    setUser(getUser());
+    function receber(id) {
+      Api.get(`/candidato/${id}`).then((dados)=>{
+        setDados(dados?.data);
+      }).catch((e)=>{});
+    }
+    receber(id)
+  },[])
+
   return (
     <>
     <DesktopHeader className="mt-8" />
@@ -24,21 +43,20 @@ export default function Perfil() {
                 <div class="col-md-9 col-sm-9">
                   <div class="profile-content">
                     <h2>
-                      Raul Cori<span>Desenvolvedor Web</span>
+                    {dados?.utilizadorId?.nome} <span> {dados?.areaId?.nome}</span>
                     </h2>
-                    <p>Soft Techi Infoteck Pvt.</p>
                     <ul class="information">
                       <li>
-                        <span>Nome:</span>Raul Cori
+                        <span>Nome:</span>{dados?.utilizadorId?.nome}
                       </li>
                       <li>
-                        <span>Email:</span>daniel-duke@gmail.com
+                        <span>Email:</span>{dados?.utilizadorId?.email}
                       </li>
                       <li>
-                        <span>Telefone:</span>+91 548 576 8579
+                        <span>Telefone:</span>{dados?.conctacto}
                       </li>
                       <li>
-                        <span>Data de Nascimento:</span>19 Agosto 2001
+                        <span>Data de Nascimento:</span>{dados?.dataNascimento}
                       </li>
                     </ul>
                   </div>
@@ -77,13 +95,7 @@ export default function Perfil() {
 
                   <div class="panel-body">
                     <p>
-                      The front end is the part that users see and interact
-                      with, includes the User Interface, the animations, and
-                      usually a bunch of logic to talk to the backend. It is the
-                      visual bit that the user interacts with. This includes the
-                      design, images, colours, buttons, forms, typography,
-                      animations and content. It’s basically everything that you
-                      as a user of the website can see.
+                      {dados?.sobreMin}
                     </p>
                   </div>
                 </div>
@@ -95,47 +107,8 @@ export default function Perfil() {
 
                   <div class="panel-body">
                     <p>
-                      The front end is the part that users see and interact
-                      with, includes the User Interface, the animations, and
-                      usually a bunch of logic to talk to the backend. It is the
-                      visual bit that the user interacts with.
+                      {dados?.reponsabilidade}
                     </p>
-                    <ul>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                    </ul>
                   </div>
                 </div>
 
@@ -146,16 +119,8 @@ export default function Perfil() {
 
                   <div class="panel-body">
                     <p>
-                      The front end is the part that users see and interact
-                      with, includes the User Interface, the animations, and
-                      usually a bunch of logic to talk to the backend.
+                      {dados?.habilidades}
                     </p>
-                    <span class="service-tag">Web Design</span>
-                    <span class="service-tag">Graphics</span>
-                    <span class="service-tag">Development</span>
-                    <span class="service-tag">App design</span>
-                    <span class="service-tag">IOS Apps</span>
-                    <span class="service-tag">CMS Development</span>
                   </div>
                 </div>
               </div>

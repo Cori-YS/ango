@@ -1,10 +1,33 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Link } from 'react-router-dom'
-
+import {useAuth} from '../../auth';
+import { useNavigate } from "react-router-dom";
 import DesktopHeader from "../../components/DesktopHeaderImg";
 import MobileHeader from "../../components/MobileHeaderImg";
-
+import { useParams} from 'react-router-dom'
+import Api from '../../services/api'
 export default function Empresa() {
+  const {id} = useParams();
+
+  const navigate = useNavigate();
+  const { getUser} =useAuth()
+  const [user, setUser] = useState({})
+  const [dado, setDado] = useState({})
+  useEffect(()=>{
+    setUser(getUser());
+
+   async function receber(id){
+    await Api.get(`/empresa/${id}`).then((dados)=>{
+      setDado(dados?.data)
+      console.log(dados?.data, "dados")
+    }).catch((e)=>{})
+    }
+
+receber(id)
+    
+  },[])
+
+
   return (
     <>
     <DesktopHeader className="mt-8" />
@@ -20,18 +43,20 @@ export default function Empresa() {
                 <div class="col-md-9 col-sm-9">
                   <div class="profile-content">
                     <h2>
-                      Microsoft<span>Internet e Computacao de Software</span>
+                     {dado?.utilizadorId?.nome}<span>{dado?.areaId?.nome}</span>
                     </h2>
-                    <p>Now Hiring(102)</p>
                     <ul class="information">
                       <li>
-                        <span>Endereço:</span>Menlo Park, CA
+                        <span>Endereço:</span>{dado?.localizacaoId?.nome}
                       </li>
                       <li>
-                        <span>Website:</span>Google.com
+                        <span>Website:</span> {dado?.site}
                       </li>
                       <li>
-                        <span>Email:</span>info@google.com
+                        <span>Contacto:</span> {dado?.conctacto}
+                      </li>
+                      <li>
+                        <span>Email:</span>{dado?.utilizadorId?.email}
                       </li>
                     </ul>
                   </div>
@@ -65,15 +90,12 @@ export default function Empresa() {
                 </ul>
                 <div class="panel panel-default">
                   <div class="panel-heading">
-                    <i class="fa fa-user fa-fw"></i> Sobre Microsoft
+                    <i class="fa fa-user fa-fw"></i> Sobre{ ' '}{dado?.utilizadorId?.nome}
                   </div>
 
                   <div class="panel-body">
                     <p>
-                      The front end is the part that users see and interact
-                      with, includes the User Interface, the animations, and
-                      usually a bunch of logic to talk to the backend. It is the
-                      visual bit that the user interacts with.
+                    {dado?.sobre}
                     </p>
                   </div>
                 </div>
@@ -85,46 +107,8 @@ export default function Empresa() {
 
                   <div class="panel-body">
                     <p>
-                      Rapid growth since incorporation has triggered a chain of
-                      products, acquisitions and partnerships beyond Google's
-                      core search engine (Google Search).
+                     {dado?.responsabilidade}
                     </p>
-                    <ul>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                    </ul>
                   </div>
                 </div>
 
@@ -135,45 +119,8 @@ export default function Empresa() {
 
                   <div class="panel-body">
                     <p>
-                      Rapid growth since incorporation has triggered a chain of
-                      products.
+                      {dado?.qualificaoesMin}
                     </p>
-                    <ul>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                    </ul>
                   </div>
                 </div>
 
@@ -184,42 +131,9 @@ export default function Empresa() {
                   </div>
 
                   <div class="panel-body">
-                    <ul>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software testing in a Web Applications/Mobile
-                        environment.
-                      </li>
-                      <li>
-                        Software testing in a Web Applications environment.
-                      </li>
-                      <li>Translate designs into responsive web interfaces</li>
-                      <li>
-                        Software Test Plans from Business Requirement
-                        Specifications for test engineering group.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                      <li>
-                        Run production tests as part of software implementation;
-                        Create, deliver and support test plans for testing group
-                        to execute.
-                      </li>
-                    </ul>
+                  <p>
+                     {dado?.qualificacoesPref}
+                    </p>
                   </div>
                 </div>
               </div>

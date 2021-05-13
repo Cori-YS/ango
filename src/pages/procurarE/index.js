@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from "react";
 import './index1.css';
 import { Link } from 'react-router-dom'
-import DesktopHeader from "../../components/DesktopHeader";
-import MobileHeader from "../../components/MobileHeader";
+import { useAuth} from '../../auth'
+import DesktopHeader from "../../components/DesktopHeaderE";
+import MobileHeader from "../../components/MobileHeaderE";
 import ReactDOM from "react-router-dom"
 import Api from '../../services/api';
 
 
 export default function Procurar() {
+  const { getUser} = useAuth()
   const [procura, setProcura] = React.useState("");
+  const [user, setUser] = useState({});
   const [resultado, setResultado] = React.useState([]);
   const [dados, setDados]=useState([])
   const [tag, setTag]= useState(<>,</>)
@@ -27,6 +30,7 @@ export default function Procurar() {
         console.error(e)
       })
     }
+    setUser(getUser());
     receber()
   },[])
 

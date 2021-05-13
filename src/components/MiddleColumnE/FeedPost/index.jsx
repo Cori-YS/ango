@@ -63,13 +63,6 @@ const FeedPost= ({Id, data, nomeVaga, nomeEmpresa,overView, setor, idEmpresa}) =
           </button>
           </Link>
 
-          <button style={{ borderRadius:"4px"}}>
-            <EliminarIcon />
-            <span>
-              Eliminar Vaga
-            </span>
-           
-          </button>
 
         </Row>
        
