@@ -1,52 +1,52 @@
-import React, {useRef} from "react";
-import * as yup from 'yup';
-import { Form} from '@unform/web';
-import  Input  from '../../components/components/fields/Input';
-import {toast} from "react-toastify";
+import React, { useRef } from "react";
+import * as yup from "yup";
+import { Form } from "@unform/web";
+import Input from "../../components/components/fields/Input";
+import { toast } from "react-toastify";
 //import avatar from "../../../profile.svg";
 //import bg from "../../assets/bg.svg";
 //import wave from "../../assets/wave.png";
 import { Link, useNavigate } from "react-router-dom";
-import api from '../../services/api'
-import Constants from '../../components/general/constants'
-
-
+import api from "../../services/api";
+import Constants from "../../components/general/constants";
 
 function Login() {
   const navigate = useNavigate();
   const schema = yup.object({
-    email: yup.string().email('Deve ser um email valido').required('O email é obrigatorio'),
-    senha: yup.string().min(8).required('O password é obrigatorio')
-  })
-  
-  async function handleSubmit (data, {reset}){
-    try{
-    
-     await schema.validate(data, {
-       abortEarly: false,
-     });
-     reset();
-    }catch (err){
-     if (err instanceof yup.ValidationError) {
-       const errorMessages = {};
-   
-       err.inner.forEach((error) => {
-         errorMessages[error.path] = error.message;
-       });
-   
-       formRef.current.setErrors(errorMessages);
-       }
-       return;
-     }
-   
-     try {
-      const response = await api.post('/sessao', {data});
+    email: yup
+      .string()
+      .email("Deve ser um email valido")
+      .required("O email é obrigatorio"),
+    senha: yup.string().min(8).required("O password é obrigatorio"),
+  });
+
+  async function handleSubmit(data, { reset }) {
+    try {
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+      reset();
+    } catch (err) {
+      if (err instanceof yup.ValidationError) {
+        const errorMessages = {};
+
+        err.inner.forEach((error) => {
+          errorMessages[error.path] = error.message;
+        });
+
+        formRef.current.setErrors(errorMessages);
+      }
+      return;
+    }
+
+    try {
+      const response = await api.post("/sessao", { data });
       console.log(response, "ismelio");
       // If successful:
       if (response.data.user.sucesso) {
         // Get token
         const { id, token, ...use } = response.data.user;
-         use.id=id;
+        use.id = id;
         if (token) {
           // Save cookie 'remember me'
 
@@ -59,7 +59,9 @@ function Login() {
             localStorage.setItem(Constants.USER_DATA, JSON.stringify(use));
 
             // Navigate to the home.
-            navigate(`/principal`);
+            if (use.categoria == "candidato") navigate(`/principal`);
+
+            if (use.categoria == "empresa") navigate(`/principal-empresa`);
           } else if (id) {
             // Navigate to the first page.
             navigate(`/primeiro-uso/${id}`);
@@ -77,44 +79,49 @@ function Login() {
           position: "top-center",
         });
       }
-   
-     }
-     catch (exception) {
-   
+    } catch (exception) {
       toast.error("Houve um erro ao iniciar a sessão. Tente novamente", {
         position: "top-center",
       });
-      console.log(exception, 'erro');
-    
-     }
-   }
-   const formRef = useRef(null);
-
+      console.log(exception, "erro");
+    }
+  }
+  const formRef = useRef(null);
 
   return (
     <>
       <section class="login-wrapper">
         <div class="container1">
-          <Form class="container" schema={schema} onSubmit={handleSubmit} ref={formRef} style={{width: '410px'}}>
+          <Form
+            class="container"
+            schema={schema}
+            onSubmit={handleSubmit}
+            ref={formRef}
+            style={{ width: "410px" }}
+          >
             <img class="img-responsive" alt="logo" src="img/logo-azul.png" />
             <Input
               type="email"
               class="form-control"
               placeholder="Email"
-              name= "email"
-              style={{width: '350px', margin: '10px auto'}}
+              name="email"
+              style={{ width: "350px", margin: "10px auto" }}
             />
             <Input
               type="password"
               class="form-control"
               placeholder="Palavra-passe"
-              name = "senha"
-              style={{width: '350px', margin: '10px auto'}}
+              name="senha"
+              style={{ width: "350px", margin: "10px auto" }}
             />
             <label>
               <Link to="/recuperar-senha">Esqueceu à Palavra-passe?</Link>
             </label>
-            <button type="submit" class="btn btn-primary" style={{margin: "20px"}}>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              style={{ margin: "20px" }}
+            >
               Entrar
             </button>
             <p>

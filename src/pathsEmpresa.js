@@ -11,12 +11,9 @@ import Empresa from "./pages/empresa";
 import Redefinir from "./pages/redifinpassword";
 import listaUser from "./pages/listaUser";
 import Notifc from "./pages/notificacao";
-import EditarPerfilEmpresa from './pages/editPEmpresa'
+import EditarPerfilEmpresa from "./pages/editPEmpresa";
 
 // Auth
-import Auth from "./pages/auth";
-
-import Main from "./pages";
 
 // Home
 import Layoute from "./components/layoutE";
@@ -24,59 +21,56 @@ import Layoute from "./components/layoutE";
 // Profile
 
 const routes = [
-  
   {
     path: "/editar-conta-empresa/:id",
-    element: EditarPerfilEmpresa 
+    element: EditarPerfilEmpresa,
   },
   {
     path: "/cadastrar-vaga",
-    element: EditarDetalhes 
+    element: EditarDetalhes,
   },
   {
     path: "/editar-vaga/:id",
-    element: Editar_Detalhes 
+    element: Editar_Detalhes,
   },
-  
+
   {
     path: "/redefinir-senha",
-    element: Redefinir
+    element: Redefinir,
   },
   {
     path: "/perfil-empresa/:id",
-    element: Empresa
+    element: Empresa,
   },
-  
+
   {
     path: "/detalhes-vaga/:id",
-    element: DetalhesE
+    element: DetalhesE,
   },
   {
     path: "/procurare",
-    element: ProcurarE
+    element: ProcurarE,
   },
   {
     path: "/lista-candidatos/:id",
-    element: listaUser
+    element: listaUser,
   },
   {
     path: "/principal-empresa",
-    element: Layoute
+    element: Layoute,
   },
   {
     path: "/notificacoes/:id",
-    element: Notifc
-  }
-  ,
+    element: Notifc,
+  },
   {
     path: "/perfil-ver/:id",
-    element: PerfilVer
+    element: PerfilVer,
   },
   {
     path: "/procurare",
-    element: ProcurarE
+    element: ProcurarE,
   },
-  
 ];
 
 export default routes;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Routes } from "react-router-dom";
 
-import { AuthProvider, useAuth } from "./auth";
+import { AuthProvider, useAuth, isAuth } from "./auth";
 
 import RouteWrapper from "./RouteWrapper";
 
@@ -14,13 +14,13 @@ import PathDefault from "./pathsDefault";
 export default function ContainerRoutes() {
   const [user, setUser] = useState({});
 
-  const getUser = useAuth()?.getUser();
+  //const getUser = useAuth()?.getUser();
 
-  useEffect(() => {
-    setUser(getUser || {});
-  }, [getUser]);
-  function Owner(owner) {
-    switch (owner) {
+  function Owner() {
+    const { getUser } = useAuth();
+
+    const response = getUser();
+    switch (response?.categoria) {
       case "empresa":
         return <Routes>{PathEmpresa.map((route) => makeRoute(route))}</Routes>;
 
@@ -29,14 +29,14 @@ export default function ContainerRoutes() {
           <Routes>{PathCandidato.map((route) => makeRoute(route))}</Routes>
         );
       default:
-        return <Routes>{Paths.map((route) => makeRoute(route))}</Routes>;
+        return <Routes>{PathDefault.map((route) => makeRoute(route))}</Routes>;
     }
   }
 
   return (
     <AuthProvider>
       {/** <Routes>{Paths.map((route) => makeRoute(route))}</Routes> */}
-      <Owner owner={user.categoria} />
+      <Owner />
     </AuthProvider>
   );
 }

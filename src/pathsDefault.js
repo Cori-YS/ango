@@ -34,7 +34,7 @@ import Layoute from "./components/layoutE";
 
 const routes = [
   {
-    path: "/home",
+    path: "/",
     element: Home,
     isPrivate: false,
   },

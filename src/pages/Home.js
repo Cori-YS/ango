@@ -9,8 +9,8 @@ export default function Home() {
   const [Empresa, setEmprsas] = useState(0);
   const [Candidatos, setCandidato] = useState(0);
   const [Vaga, setVagas] = useState(0);
-  const [dados, setDados]=useState([])
-  const [tag, setTag]= useState(<>,</>)
+  const [dados, setDados] = useState([]);
+  const [tag, setTag] = useState(<>,</>);
 
   const contentStyle = {
     height: "160px",
@@ -28,22 +28,50 @@ export default function Home() {
       setCandidato(Candidato);
       setVagas(Vagas);
     }
-    function receber (){
-      Api.get('/vaga').then((data)=>{
-       console.log('rau', data.data.Listagem)
-       setDados(data.data.Listagem)
-      }).catch((e)=>{
-        alert()
-        console.error(e)
-      })
+    function receber() {
+      Api.get("/vaga")
+        .then((data) => {
+          console.log("rau", data.data.Listagem);
+          setDados(data.data.Listagem);
+        })
+        .catch((e) => {
+          alert();
+          console.error(e);
+        });
     }
-    receber()
+    receber();
     teste();
   }, []);
+  function myFunction(event) {
+    event.preventDefault();
+
+    document.getElementsByClassName("topnav")[0].classList.toggle("responsive");
+  }
 
   return (
     <>
-      <Header />
+      <nav>
+        <ul className="topnav">
+          <li>
+            <Link to="/">
+              <img src="img/logo.png" alt="" />
+            </Link>
+          </li>
+
+          <li>
+            <Link to="/">Início</Link>
+          </li>
+
+          <li>
+            <Link to="/entrar">Login</Link>
+          </li>
+          <li className="icon">
+            <a href=" " onClick={myFunction}>
+              &#9776;
+            </a>
+          </li>
+        </ul>
+      </nav>
       <section class="banner">
         <div class="container">
           <div class="caption">
@@ -176,51 +204,46 @@ export default function Home() {
           <h2 class="section-title">Vagas em alta</h2>
           <div class="row">
             <div class="col-md-12">
-
-
-            {dados.slice(0, 5).map((e)=>(
-              <div class="job-list">
-                <div class="thumb">
-                  <Link to="/entrar">
-                    <img src="assets/img/jobs/img-1.jpg" alt="" />
-                  </Link>
-                </div>
-                <div class="job-list-content">
-                  <h4>
-                    <Link to="/entrar">{e.nome}</Link>
-                    <span class="full-time">
-                      {e.tipoVaga =="1" && "Estagio"}
-                      {e.tipoVaga =="2" && "Integral"}
-                    </span>
-                  </h4>
-                  <p>
-                    {e.overview}
-                  </p>
-                  <div class="job-tag">
-                    <div class="pull-left">
-                      <div class="meta-tag">
-                        <span>
-                          <Link to="/entrar">
-                            <i class="ti-brush"></i>{e.setor.nome}
-                          </Link>
-                        </span>
+              {dados.slice(0, 5).map((e) => (
+                <div class="job-list">
+                  <div class="thumb">
+                    <Link to="/entrar">
+                      <img src="assets/img/jobs/img-1.jpg" alt="" />
+                    </Link>
+                  </div>
+                  <div class="job-list-content">
+                    <h4>
+                      <Link to="/entrar">{e.nome}</Link>
+                      <span class="full-time">
+                        {e.tipoVaga == "1" && "Estagio"}
+                        {e.tipoVaga == "2" && "Integral"}
+                      </span>
+                    </h4>
+                    <p>{e.overview}</p>
+                    <div class="job-tag">
+                      <div class="pull-left">
+                        <div class="meta-tag">
+                          <span>
+                            <Link to="/entrar">
+                              <i class="ti-brush"></i>
+                              {e.setor.nome}
+                            </Link>
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                    <div class="pull-right">
-                      <div class="icon">
-                        <i class="ti-heart"></i>
+                      <div class="pull-right">
+                        <div class="icon">
+                          <i class="ti-heart"></i>
+                        </div>
+                        <Link to="/entrar" class="btn btn-common btn-rm">
+                          Mais Detalhes
+                        </Link>
                       </div>
-                      <Link to="/entrar" class="btn btn-common btn-rm">
-                        Mais Detalhes
-                      </Link>
                     </div>
                   </div>
                 </div>
-              </div>
-
-            ))}
+              ))}
               {tag}
-              
             </div>
           </div>
         </div>
@@ -230,54 +253,44 @@ export default function Home() {
         <div class="container">
           <h2 class="section-title">Vagas Recentes</h2>
           <div class="row">
+            {dados.slice(0, 7).map((e) => (
+              <div class="col-md-4 col-sm-6 col-xs-12">
+                <div class="featured-item">
+                  <div class="featured-wrap">
+                    <div class="featured-inner">
+                      <figure class="item-thumb">
+                        <Link class="hover-effect" to="/entrar">
+                          <img src="assets/img/features/img-1.jpg" alt="" />
+                        </Link>
+                      </figure>
+                      <div class="item-body">
+                        <h3 class="job-title">
+                          <Link to="/entrar">{e.nome}</Link>
+                        </h3>
+                        <div class="adderess"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="item-foot">
+                    <span>
+                      <i class="ti-calendar"></i> {e.createdAt} atrás
+                    </span>
+                    <span>
+                      <i class="ti-time"></i> {e.tipoVaga == "1" && "Estagio"}{" "}
+                      {e.tipoVaga == "2" && "Integral"}
+                    </span>
+                    <div class="view-iocn">
+                      <Link to="/entrar">
+                        <i class="ti-arrow-right"></i>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-          {dados.slice(0, 7).map((e)=>(
-
-
-
-<div class="col-md-4 col-sm-6 col-xs-12">
-  <div class="featured-item">
-    <div class="featured-wrap">
-      <div class="featured-inner">
-        <figure class="item-thumb">
-          <Link class="hover-effect" to="/entrar">
-            <img src="assets/img/features/img-1.jpg" alt="" />
-          </Link>
-        </figure>
-        <div class="item-body">
-          <h3 class="job-title">
-            <Link to="/entrar">{e.nome}</Link>
-          </h3>
-          <div class="adderess">
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="item-foot">
-      <span>
-        <i class="ti-calendar"></i> {e.createdAt} atrás
-      </span>
-      <span>
-        <i class="ti-time"></i> {e.tipoVaga =="1" && "Estagio"} {e.tipoVaga =="2" && "Integral"}
-      </span>
-      <div class="view-iocn">
-        <Link to="/entrar">
-          <i class="ti-arrow-right"></i>
-        </Link>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-          //<FeedPost Id={e._id} data={e.createdAt} nomeVaga={e.nome} nomeEmpresa={e.utilizadorId.nome} overView={e.overview} setor ={e.setor.nome} idEmpresa={e.utilizadorId._id}/>
-          ))}
-          {tag}
-
-
+              //<FeedPost Id={e._id} data={e.createdAt} nomeVaga={e.nome} nomeEmpresa={e.utilizadorId.nome} overView={e.overview} setor ={e.setor.nome} idEmpresa={e.utilizadorId._id}/>
+            ))}
+            {tag}
           </div>
         </div>
       </section>
